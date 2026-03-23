@@ -822,52 +822,51 @@
               </div>
             `).join('')
           : '<em>No saved projects yet</em>';
-      };
+      });
     });
   }
 
   async function exportCSV() {
-  if (!imageData.length) {
-    alert('No data');
-    return;
-  }
-
-  const name = (projectNameEl.value.trim() || 'project').replace(/[^a-z0-9]/gi, '_');
-  let csv = 'Row,Original Name,New Name,Title,Category,Condition,Quantity,Est. Price,Description,Notes\n';
-
-  imageData.forEach((item, i) => {
-    csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g,' '))}","${csvSafe((item.notes || '').replace(/\n/g,' '))}"\n`;
-  });
-
-  const fileName = `${name}_manifest.csv`;
-  const file = new File([csv], fileName, { type: 'text/csv;charset=utf-8' });
-
-  try {
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        title: fileName
-      });
-      setStatus('CSV shared');
+    if (!imageData.length) {
+      alert('No data');
       return;
     }
-  } catch (err) {
-    console.error(err);
+
+    const name = (projectNameEl.value.trim() || 'project').replace(/[^a-z0-9]/gi, '_');
+    let csv = 'Row,Original Name,New Name,Title,Category,Condition,Quantity,Est. Price,Description,Notes\n';
+
+    imageData.forEach((item, i) => {
+      csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g,' '))}","${csvSafe((item.notes || '').replace(/\n/g,' '))}"\n`;
+    });
+
+    const fileName = `${name}_manifest.csv`;
+    const file = new File([csv], fileName, { type: 'text/csv;charset=utf-8' });
+
+    try {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: fileName
+        });
+        setStatus('CSV shared');
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setStatus('CSV exported');
   }
-
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = fileName;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-
-  setStatus('CSV exported');
-}
-}
 
   function importCSV(e) {
     alert("CSV import loads metadata only.\n\nYou must re-upload the actual images for previews to appear.");
@@ -916,11 +915,9 @@
           if (h.includes('notes')) obj.notes = cols[i] || '';
         });
 
-        return obj;
+        await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
+        scheduleAutoSave();
       });
-
-      await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
-      scheduleAutoSave();
     };
 
     reader.readAsText(file);
