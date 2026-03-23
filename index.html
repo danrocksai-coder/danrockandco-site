@@ -826,25 +826,47 @@
     });
   }
 
-  function exportCSV() {
+  async function exportCSV() {
   if (!imageData.length) {
     alert('No data');
     return;
   }
 
-  const name = projectNameEl.value.trim() || 'project';
+  const name = (projectNameEl.value.trim() || 'project').replace(/[^a-z0-9]/gi, '_');
   let csv = 'Row,Original Name,New Name,Title,Category,Condition,Quantity,Est. Price,Description,Notes\n';
 
   imageData.forEach((item, i) => {
     csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g,' '))}","${csvSafe((item.notes || '').replace(/\n/g,' '))}"\n`;
   });
 
-  const blob = new Blob([csv], { type: 'text/csv' });
+  const fileName = `${name}_manifest.csv`;
+  const file = new File([csv], fileName, { type: 'text/csv;charset=utf-8' });
+
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: fileName
+      });
+      setStatus('CSV shared');
+      return;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 
-  window.open(url);
-
-  setStatus('Choose where to save CSV');
+  setStatus('CSV exported');
+}
 }
 
   function importCSV(e) {
