@@ -825,7 +825,73 @@
       });
     });
   }
+function importCSV(e) {
+  alert("CSV import loads metadata only.\n\nYou must re-upload the actual images for previews to appear.");
 
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = async ev => {
+    const lines = ev.target.result.split(/\r?\n/);
+    if (lines.length < 2) {
+      showError('Empty or invalid CSV');
+      return;
+    }
+
+    const headers = lines[0]
+      .toLowerCase()
+      .split(',')
+      .map(h => h.trim().replace(/^"|"$/g, ''));
+
+    const now = Date.now();
+
+    imageData = lines
+      .slice(1)
+      .filter(line => line.trim())
+      .map((line, idx) => {
+        const cols = line
+          .split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+          .map(c => c.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+
+        const obj = {
+          id: 'meta_import_' + now + '_' + idx,
+          imageId: 'img_import_' + now + '_' + idx,
+          originalName: 'imported',
+          newName: '',
+          title: '',
+          category: '',
+          condition: '',
+          quantity: '1',
+          estimatedPrice: '',
+          description: '',
+          notes: '',
+          detectedDate: new Date().toLocaleDateString()
+        };
+
+        headers.forEach((h, i) => {
+          const val = cols[i] || '';
+          if (h.includes('original')) obj.originalName = val || 'imported';
+          if (h.includes('new name') || h.includes('newname')) obj.newName = val;
+          if (h.includes('title')) obj.title = val;
+          if (h.includes('category')) obj.category = val;
+          if (h.includes('condition')) obj.condition = val;
+          if (h.includes('quantity')) obj.quantity = val || '1';
+          if (h.includes('price') || h.includes('est')) obj.estimatedPrice = val;
+          if (h.includes('desc')) obj.description = val;
+          if (h.includes('notes')) obj.notes = val;
+        });
+
+        return obj;
+      });
+
+    await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
+    scheduleAutoSave();
+  };
+
+  reader.readAsText(file);
+}
   async function exportCSV() {
     if (!imageData.length) {
       alert('No data');
