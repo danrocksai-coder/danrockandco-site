@@ -491,12 +491,10 @@
         imageData.push(item.meta);
       });
 
-      tx.oncomplete = () => {
-        renderCards();
-        updateUploadStatus();
+      tx.oncomplete = async () => {
+        await refreshUI();
         scheduleAutoSave();
         uploadProgress.classList.add('hidden');
-        setStatus(`${imageData.length} / 50 items`);
       };
 
       tx.onerror = () => {
@@ -514,16 +512,14 @@
     uploadZone.classList.toggle('disabled', remaining === 0);
   }
 
-  function newProject() {
+  async function newProject() {
     if (confirm("Clear current unsaved work and start a new project?")) {
       currentProjectId = null;
       imageData = [];
       projectNameEl.value = '';
       clientNameEl.value = '';
-      renderCards();
-      updateUploadStatus();
       lastSavedEl.textContent = '';
-      setStatus('New project ready');
+      await refreshUI('New project ready');
     }
   }
 
@@ -655,6 +651,17 @@
     });
   }
 
+  async function refreshUI(statusMessage = null, statusDuration = 3000) {
+    await renderCards();
+    updateUploadStatus();
+
+    if (statusMessage) {
+      setStatus(statusMessage, statusDuration);
+    } else {
+      statusEl.textContent = `${imageData.length} / 50 items`;
+    }
+  }
+
   function updateField(e) {
     const field = e.target.dataset.field;
     const card = e.target.closest('.image-card');
@@ -671,19 +678,30 @@
     }
   }
 
-  function deleteCard(metaId) {
+  async function deleteCard(metaId) {
     if (!confirm('Remove this item?')) return;
 
     const item = imageData.find(m => m.id === metaId);
-    if (item) {
-      db.transaction("images", "readwrite").objectStore("images").delete(item.imageId);
-      imageData = imageData.filter(m => m.id !== metaId);
-      renderCards();
-      scheduleAutoSave();
-    }
+    if (!item) return;
+
+    await safeDB(async () => {
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction("images", "readwrite");
+        const store = tx.objectStore("images");
+        const req = store.delete(item.imageId);
+
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(new Error("Failed to delete image blob"));
+      });
+    });
+
+    imageData = imageData.filter(m => m.id !== metaId);
+
+    await refreshUI();
+    scheduleAutoSave();
   }
 
-  function applyBulkRename() {
+  async function applyBulkRename() {
     const prefix = bulkPrefixEl.value.trim();
     if (!prefix) {
       alert('Enter a prefix');
@@ -695,7 +713,7 @@
       item.newName = `${prefix}-${String(i + 1).padStart(pad, '0')}`;
     });
 
-    renderCards();
+    await refreshUI();
     scheduleAutoSave();
   }
 
@@ -746,7 +764,7 @@
       const tx = db.transaction("projects", "readonly");
       const req = tx.objectStore("projects").get(id);
 
-      req.onsuccess = e => {
+      req.onsuccess = async e => {
         const proj = e.target.result;
         if (!proj) return showError('Project not found');
 
@@ -755,9 +773,8 @@
         clientNameEl.value = proj.clientName || '';
         imageData = proj.items || [];
 
-        renderCards();
         lastSavedEl.textContent = `Last saved: ${new Date(proj.updatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
-        setStatus(`Loaded: ${proj.projectName}`);
+        await refreshUI(`Loaded: ${proj.projectName}`);
       };
     });
   }
@@ -769,7 +786,7 @@
       const tx = db.transaction(["projects", "images"], "readwrite");
       const projReq = tx.objectStore("projects").get(id);
 
-      projReq.onsuccess = e => {
+      projReq.onsuccess = async e => {
         const proj = e.target.result;
         if (proj) {
           proj.items.forEach(item => tx.objectStore("images").delete(item.imageId));
@@ -778,10 +795,10 @@
           if (currentProjectId === id) {
             currentProjectId = null;
             imageData = [];
-            renderCards();
             lastSavedEl.textContent = '';
             projectNameEl.value = '';
             clientNameEl.value = '';
+            await refreshUI();
           }
 
           listProjects();
@@ -836,7 +853,7 @@
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = ev => {
+    reader.onload = async ev => {
       const lines = ev.target.result.split(/\r?\n/);
       if (lines.length < 2) return showError('Empty or invalid CSV');
 
@@ -879,8 +896,7 @@
         return obj;
       });
 
-      renderCards();
-      setStatus(`Imported ${imageData.length} rows (re-upload images)`);
+      await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
       scheduleAutoSave();
     };
 
@@ -920,13 +936,13 @@
     if (draggedCard) draggedCard.classList.add('dragging');
   };
 
-  grid.ondragend = () => {
+  grid.ondragend = async () => {
     if (draggedCard) {
       draggedCard.classList.remove('dragging');
       const newOrderIds = Array.from(grid.children).map(card => card.dataset.metaId);
       imageData = newOrderIds.map(id => imageData.find(m => m.id === id)).filter(Boolean);
       scheduleAutoSave();
-      renderCards();
+      await refreshUI();
     }
     draggedCard = null;
   };
