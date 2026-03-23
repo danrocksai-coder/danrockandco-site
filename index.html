@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Spreadsheet Pro V3.6 – Final Complete</title>
+  <title>Image Spreadsheet Pro V3.6 – Fixed</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
   <style>
     :root {
       --primary: #2563eb;
@@ -121,9 +120,7 @@
       cursor: grab;
     }
 
-    .image-card:hover {
-      transform: translateY(-3px);
-    }
+    .image-card:hover { transform: translateY(-3px); }
 
     .image-card.dragging {
       opacity: 0.65;
@@ -161,9 +158,7 @@
       display: block;
     }
 
-    input,
-    textarea,
-    select {
+    input, textarea, select {
       width: 100%;
       padding: 0.7rem;
       border: 1px solid var(--border);
@@ -173,9 +168,7 @@
       box-sizing: border-box;
     }
 
-    input.changed,
-    textarea.changed,
-    select.changed {
+    input.changed, textarea.changed, select.changed {
       background: var(--highlight);
       border-color: var(--highlight-border);
     }
@@ -226,16 +219,11 @@
       align-items: center;
     }
 
-    .project-row strong {
-      margin-right: 0.5rem;
-    }
+    .project-row strong { margin-right: 0.5rem; }
 
     .progress-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(255,255,255,0.8);
       display: flex;
       align-items: center;
@@ -253,33 +241,17 @@
       color: #34d399;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     @media (max-width: 900px) {
-      .image-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .status {
-        margin-left: 0;
-      }
-
-      .header {
-        flex-direction: column;
-        align-items: stretch;
-      }
+      .image-grid { grid-template-columns: 1fr; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .status { margin-left: 0; }
+      .header { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
   <div class="header">
     <h1>📸 Image Spreadsheet Pro <small>V3.6 – Complete</small></h1>
@@ -339,58 +311,7 @@
   const DB_VERSION = 1;
   let db;
   let dbReadyResolve;
-  const dbReady = new Promise(res => dbReadyResolve = res);
-
-  const dbRequest = indexedDB.open(DB_NAME, DB_VERSION);
-
-  dbRequest.onerror = e => {
-    console.error(e);
-    showError("Database error");
-  };
-
-  dbRequest.onsuccess = e => {
-    db = e.target.result;
-    dbReadyResolve();
-    listProjects();
-    setStatus('Ready');
-    updateUploadStatus();
-  };
-
-  dbRequest.onupgradeneeded = e => {
-    db = e.target.result;
-    if (!db.objectStoreNames.contains("projects")) {
-      db.createObjectStore("projects", { keyPath: "id" });
-    }
-    if (!db.objectStoreNames.contains("images")) {
-      db.createObjectStore("images", { keyPath: "id" });
-    }
-  };
-
-  async function safeDB(action) {
-    await dbReady;
-    try {
-      return await action();
-    } catch (err) {
-      console.error(err);
-      showError("DB operation failed");
-      return null;
-    }
-  }
-
-  function toggleTheme() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-  }
-
-  if (
-    localStorage.getItem('theme') === 'dark' ||
-    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('themeBtn').textContent = '☀️';
-  }
+  const dbReady = new Promise(res => { dbReadyResolve = res; });
 
   let currentProjectId = null;
   let imageData = [];
@@ -409,6 +330,58 @@
   const uploadProgress = document.getElementById('uploadProgress');
   const fileInput = document.getElementById('fileInput');
   const savedProjectsEl = document.getElementById('savedProjectsList');
+
+  const dbRequest = indexedDB.open(DB_NAME, DB_VERSION);
+
+  dbRequest.onerror = e => {
+    console.error(e);
+    showError('Database error');
+    setStatus('Database error', 0);
+  };
+
+  dbRequest.onsuccess = e => {
+    db = e.target.result;
+    if (dbReadyResolve) dbReadyResolve();
+    listProjects();
+    updateUploadStatus();
+    setStatus('Ready');
+  };
+
+  dbRequest.onupgradeneeded = e => {
+    db = e.target.result;
+    if (!db.objectStoreNames.contains('projects')) {
+      db.createObjectStore('projects', { keyPath: 'id' });
+    }
+    if (!db.objectStoreNames.contains('images')) {
+      db.createObjectStore('images', { keyPath: 'id' });
+    }
+  };
+
+  async function safeDB(action) {
+    await dbReady;
+    try {
+      return await action();
+    } catch (err) {
+      console.error(err);
+      showError('DB operation failed');
+      return null;
+    }
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+
+  if (
+    localStorage.getItem('theme') === 'dark' ||
+    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeBtn').textContent = '☀️';
+  }
 
   uploadZone.onclick = () => fileInput.click();
   fileInput.onchange = e => handleFiles(e.target.files);
@@ -430,7 +403,7 @@
 
   async function handleFiles(files) {
     if (imageData.length >= 50) {
-      alert("Maximum 50 images per batch reached.\nStart a new project for the next set.");
+      alert('Maximum 50 images per batch reached.\nStart a new project for the next set.');
       return;
     }
 
@@ -443,7 +416,7 @@
         `Only the first ${remaining} will be added — the rest will be ignored.\n\nContinue?`
       );
       if (!proceed) {
-        setStatus("Upload cancelled");
+        setStatus('Upload cancelled');
         return;
       }
       filesArray = filesArray.slice(0, remaining);
@@ -483,24 +456,22 @@
         });
       }
 
-      const tx = db.transaction("images", "readwrite");
-      const store = tx.objectStore("images");
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction('images', 'readwrite');
+        const store = tx.objectStore('images');
 
-      itemsToAdd.forEach(item => {
-        store.put({ id: item.imageId, blob: item.file });
-        imageData.push(item.meta);
+        itemsToAdd.forEach(item => {
+          store.put({ id: item.imageId, blob: item.file });
+          imageData.push(item.meta);
+        });
+
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(new Error('Failed to store some images'));
       });
 
-      tx.oncomplete = async () => {
-        await refreshUI();
-        scheduleAutoSave();
-        uploadProgress.classList.add('hidden');
-      };
-
-      tx.onerror = () => {
-        uploadProgress.classList.add('hidden');
-        showError("Failed to store some images");
-      };
+      await refreshUI();
+      scheduleAutoSave();
+      uploadProgress.classList.add('hidden');
     });
   }
 
@@ -508,12 +479,12 @@
     const remaining = 50 - imageData.length;
     uploadStatus.textContent = remaining > 0
       ? `Size + date auto-detected • Room for ${remaining} more (50 max)`
-      : `Size + date auto-detected • Limit reached (50/50)`;
+      : 'Size + date auto-detected • Limit reached (50/50)';
     uploadZone.classList.toggle('disabled', remaining === 0);
   }
 
   async function newProject() {
-    if (confirm("Clear current unsaved work and start a new project?")) {
+    if (confirm('Clear current unsaved work and start a new project?')) {
       currentProjectId = null;
       imageData = [];
       projectNameEl.value = '';
@@ -535,36 +506,37 @@
     }
 
     uploadProgress.classList.remove('hidden');
-    uploadProgress.textContent = "Preparing ZIP...";
+    uploadProgress.textContent = 'Preparing ZIP...';
 
     const zip = new JSZip();
-    const folder = zip.folder(projectNameEl.value.trim() || "batch");
+    const folder = zip.folder(projectNameEl.value.trim() || 'batch');
 
     for (let i = 0; i < imageData.length; i++) {
       const item = imageData[i];
-      const tx = db.transaction("images", "readonly");
-      const req = tx.objectStore("images").get(item.imageId);
-
-      await new Promise(resolve => {
-        req.onsuccess = resolve;
-        req.onerror = resolve;
+      const result = await safeDB(async () => {
+        return await new Promise(resolve => {
+          const tx = db.transaction('images', 'readonly');
+          const req = tx.objectStore('images').get(item.imageId);
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => resolve(null);
+        });
       });
 
-      const blob = req.result?.blob;
+      const blob = result?.blob;
       if (blob) {
-        const ext = item.originalName.split('.').pop() || 'jpg';
-        const filename = (item.newName || `image_${i + 1}`) + '.' + ext;
+        const ext = item.originalName.includes('.') ? item.originalName.split('.').pop() : 'jpg';
+        const filename = `${item.newName || `image_${i + 1}`}.${ext}`;
         folder.file(filename, blob);
       }
     }
 
     let csv = 'Row,Original Name,New Name,Title,Category,Condition,Quantity,Est. Price,Description,Notes\n';
     imageData.forEach((item, i) => {
-      csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName || `image_${i + 1}`)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g,' '))}","${csvSafe((item.notes || '').replace(/\n/g,' '))}"\n`;
+      csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName || `image_${i + 1}`)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g, ' '))}","${csvSafe((item.notes || '').replace(/\n/g, ' '))}"\n`;
     });
-    folder.file("manifest.csv", csv);
+    folder.file('manifest.csv', csv);
 
-    const content = await zip.generateAsync({ type: "blob" });
+    const content = await zip.generateAsync({ type: 'blob' });
     const url = URL.createObjectURL(content);
     const a = document.createElement('a');
     a.href = url;
@@ -581,58 +553,53 @@
       grid.innerHTML = '';
 
       const loadPromises = imageData.map(async (meta, index) => {
-        const tx = db.transaction("images", "readonly");
-        const req = tx.objectStore("images").get(meta.imageId);
-
-        return new Promise(resolve => {
-          req.onsuccess = e => {
-            const blob = e.target.result?.blob;
-            const url = blob ? URL.createObjectURL(blob) : '';
-
-            const card = document.createElement('div');
-            card.className = 'image-card';
-            card.draggable = true;
-            card.dataset.metaId = meta.id;
-            card.innerHTML = `
-              <span class="counter-badge">#${index + 1}</span>
-              <img src="${url}" class="preview-img" alt="preview">
-              <label>Original</label>
-              <input type="text" value="${escapeHtml(meta.originalName)}" readonly>
-              <label>New Name</label>
-              <input type="text" value="${escapeHtml(meta.newName)}" data-field="newName">
-              <label>Title</label>
-              <input type="text" value="${escapeHtml(meta.title)}" data-field="title">
-              <label>Category</label>
-              <input type="text" value="${escapeHtml(meta.category)}" data-field="category">
-              <label>Condition</label>
-              <select data-field="condition">
-                <option value="">—</option>
-                <option value="New" ${meta.condition === 'New' ? 'selected' : ''}>New</option>
-                <option value="Like New" ${meta.condition === 'Like New' ? 'selected' : ''}>Like New</option>
-                <option value="Excellent" ${meta.condition === 'Excellent' ? 'selected' : ''}>Excellent</option>
-                <option value="Very Good" ${meta.condition === 'Very Good' ? 'selected' : ''}>Very Good</option>
-                <option value="Good" ${meta.condition === 'Good' ? 'selected' : ''}>Good</option>
-                <option value="Fair" ${meta.condition === 'Fair' ? 'selected' : ''}>Fair</option>
-              </select>
-              <label>Quantity</label>
-              <input type="number" min="1" value="${escapeHtml(meta.quantity)}" data-field="quantity">
-              <label>Est. Price</label>
-              <input type="text" value="${escapeHtml(meta.estimatedPrice)}" data-field="estimatedPrice">
-              <label>Description</label>
-              <textarea rows="3" data-field="description">${escapeHtml(meta.description)}</textarea>
-              <label>Notes</label>
-              <textarea rows="2" data-field="notes">${escapeHtml(meta.notes)}</textarea>
-              <div style="font-size:0.78rem; color:var(--muted); margin-top:8px;">Detected: ${escapeHtml(meta.detectedDate)}</div>
-              <button class="btn btn-danger" style="margin-top:1rem; width:100%;" onclick="deleteCard('${meta.id}')">Remove</button>
-            `;
-            resolve({ card, url });
-          };
-
-          req.onerror = () => {
-            const card = document.createElement('div');
-            resolve({ card, url: '' });
-          };
+        const result = await new Promise(resolve => {
+          const tx = db.transaction('images', 'readonly');
+          const req = tx.objectStore('images').get(meta.imageId);
+          req.onsuccess = e => resolve(e.target.result || null);
+          req.onerror = () => resolve(null);
         });
+
+        const blob = result?.blob;
+        const url = blob ? URL.createObjectURL(blob) : '';
+
+        const card = document.createElement('div');
+        card.className = 'image-card';
+        card.draggable = true;
+        card.dataset.metaId = meta.id;
+        card.innerHTML = `
+          <span class="counter-badge">#${index + 1}</span>
+          ${url ? `<img src="${url}" class="preview-img" alt="preview">` : `<div class="preview-img" style="display:flex;align-items:center;justify-content:center;color:var(--muted);">No preview</div>`}
+          <label>Original</label>
+          <input type="text" value="${escapeHtml(meta.originalName)}" readonly>
+          <label>New Name</label>
+          <input type="text" value="${escapeHtml(meta.newName)}" data-field="newName">
+          <label>Title</label>
+          <input type="text" value="${escapeHtml(meta.title)}" data-field="title">
+          <label>Category</label>
+          <input type="text" value="${escapeHtml(meta.category)}" data-field="category">
+          <label>Condition</label>
+          <select data-field="condition">
+            <option value="" ${meta.condition === '' ? 'selected' : ''}>—</option>
+            <option value="New" ${meta.condition === 'New' ? 'selected' : ''}>New</option>
+            <option value="Like New" ${meta.condition === 'Like New' ? 'selected' : ''}>Like New</option>
+            <option value="Excellent" ${meta.condition === 'Excellent' ? 'selected' : ''}>Excellent</option>
+            <option value="Very Good" ${meta.condition === 'Very Good' ? 'selected' : ''}>Very Good</option>
+            <option value="Good" ${meta.condition === 'Good' ? 'selected' : ''}>Good</option>
+            <option value="Fair" ${meta.condition === 'Fair' ? 'selected' : ''}>Fair</option>
+          </select>
+          <label>Quantity</label>
+          <input type="number" min="1" value="${escapeHtml(meta.quantity)}" data-field="quantity">
+          <label>Est. Price</label>
+          <input type="text" value="${escapeHtml(meta.estimatedPrice)}" data-field="estimatedPrice">
+          <label>Description</label>
+          <textarea rows="3" data-field="description">${escapeHtml(meta.description)}</textarea>
+          <label>Notes</label>
+          <textarea rows="2" data-field="notes">${escapeHtml(meta.notes)}</textarea>
+          <div style="font-size:0.78rem; color:var(--muted); margin-top:8px;">Detected: ${escapeHtml(meta.detectedDate)}</div>
+          <button class="btn btn-danger" style="margin-top:1rem; width:100%;" onclick="deleteCard('${meta.id}')">Remove</button>
+        `;
+        return { card, url };
       });
 
       const results = await Promise.all(loadPromises);
@@ -669,13 +636,13 @@
 
     const metaId = card.dataset.metaId;
     const item = imageData.find(m => m.id === metaId);
-    if (item) {
-      const old = item[field];
-      item[field] = e.target.value;
-      if (old !== item[field]) e.target.classList.add('changed');
-      else e.target.classList.remove('changed');
-      scheduleAutoSave();
-    }
+    if (!item) return;
+
+    const old = item[field];
+    item[field] = e.target.value;
+    if (old !== item[field]) e.target.classList.add('changed');
+    else e.target.classList.remove('changed');
+    scheduleAutoSave();
   }
 
   async function deleteCard(metaId) {
@@ -686,17 +653,15 @@
 
     await safeDB(async () => {
       await new Promise((resolve, reject) => {
-        const tx = db.transaction("images", "readwrite");
-        const store = tx.objectStore("images");
+        const tx = db.transaction('images', 'readwrite');
+        const store = tx.objectStore('images');
         const req = store.delete(item.imageId);
-
         req.onsuccess = () => resolve();
-        req.onerror = () => reject(new Error("Failed to delete image blob"));
+        req.onerror = () => reject(new Error('Failed to delete image blob'));
       });
     });
 
     imageData = imageData.filter(m => m.id !== metaId);
-
     await refreshUI();
     scheduleAutoSave();
   }
@@ -732,8 +697,6 @@
         return;
       }
 
-      const tx = db.transaction("projects", "readwrite");
-      const store = tx.objectStore("projects");
       const payload = {
         id: currentProjectId || 'proj_' + Date.now(),
         projectName: name,
@@ -742,15 +705,19 @@
         items: imageData.map(m => ({ ...m }))
       };
 
-      const req = store.put(payload);
-      req.onsuccess = () => {
-        currentProjectId = payload.id;
-        lastSavedEl.textContent = `Last saved: ${new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
-        document.querySelectorAll('.changed').forEach(el => el.classList.remove('changed'));
-        if (!silent) setStatus(`Saved: ${name}`);
-        listProjects();
-      };
-      req.onerror = () => showError("Save failed – storage may be full");
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction('projects', 'readwrite');
+        const store = tx.objectStore('projects');
+        const req = store.put(payload);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(new Error('Save failed'));
+      });
+
+      currentProjectId = payload.id;
+      lastSavedEl.textContent = `Last saved: ${new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
+      document.querySelectorAll('.changed').forEach(el => el.classList.remove('changed'));
+      if (!silent) setStatus(`Saved: ${name}`);
+      listProjects();
     });
   }
 
@@ -761,21 +728,24 @@
 
   async function loadProjectById(id) {
     await safeDB(async () => {
-      const tx = db.transaction("projects", "readonly");
-      const req = tx.objectStore("projects").get(id);
+      const proj = await new Promise(resolve => {
+        const tx = db.transaction('projects', 'readonly');
+        const req = tx.objectStore('projects').get(id);
+        req.onsuccess = e => resolve(e.target.result || null);
+        req.onerror = () => resolve(null);
+      });
 
-      req.onsuccess = async e => {
-        const proj = e.target.result;
-        if (!proj) return showError('Project not found');
+      if (!proj) {
+        showError('Project not found');
+        return;
+      }
 
-        currentProjectId = proj.id;
-        projectNameEl.value = proj.projectName || '';
-        clientNameEl.value = proj.clientName || '';
-        imageData = proj.items || [];
-
-        lastSavedEl.textContent = `Last saved: ${new Date(proj.updatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
-        await refreshUI(`Loaded: ${proj.projectName}`);
-      };
+      currentProjectId = proj.id;
+      projectNameEl.value = proj.projectName || '';
+      clientNameEl.value = proj.clientName || '';
+      imageData = proj.items || [];
+      lastSavedEl.textContent = `Last saved: ${new Date(proj.updatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
+      await refreshUI(`Loaded: ${proj.projectName}`);
     });
   }
 
@@ -783,115 +753,59 @@
     if (!confirm('Delete project and its images?')) return;
 
     await safeDB(async () => {
-      const tx = db.transaction(["projects", "images"], "readwrite");
-      const projReq = tx.objectStore("projects").get(id);
+      const proj = await new Promise(resolve => {
+        const tx = db.transaction('projects', 'readonly');
+        const req = tx.objectStore('projects').get(id);
+        req.onsuccess = e => resolve(e.target.result || null);
+        req.onerror = () => resolve(null);
+      });
 
-      projReq.onsuccess = async e => {
-        const proj = e.target.result;
-        if (proj) {
-          proj.items.forEach(item => tx.objectStore("images").delete(item.imageId));
-          tx.objectStore("projects").delete(id);
+      if (!proj) return;
 
-          if (currentProjectId === id) {
-            currentProjectId = null;
-            imageData = [];
-            lastSavedEl.textContent = '';
-            projectNameEl.value = '';
-            clientNameEl.value = '';
-            await refreshUI();
-          }
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(['projects', 'images'], 'readwrite');
+        proj.items.forEach(item => tx.objectStore('images').delete(item.imageId));
+        tx.objectStore('projects').delete(id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(new Error('Delete failed'));
+      });
 
-          listProjects();
-          setStatus('Project deleted');
-        }
-      };
+      if (currentProjectId === id) {
+        currentProjectId = null;
+        imageData = [];
+        lastSavedEl.textContent = '';
+        projectNameEl.value = '';
+        clientNameEl.value = '';
+        await refreshUI();
+      }
+
+      listProjects();
+      setStatus('Project deleted');
     });
   }
 
   async function listProjects() {
     await safeDB(async () => {
-      db.transaction("projects", "readonly").objectStore("projects").getAll().onsuccess = e => {
-        const projects = e.target.result;
-        savedProjectsEl.innerHTML = projects.length
-          ? projects.map(p => `
-              <div class="project-row">
-                <strong>${escapeHtml(p.projectName)}</strong>
-                ${p.clientName ? `— ${escapeHtml(p.clientName)}` : ''}
-                <button class="btn btn-secondary" style="font-size:0.85rem; padding:5px 10px;" onclick="loadProjectById('${p.id}')">Load</button>
-                <button class="btn btn-danger" style="font-size:0.85rem; padding:5px 10px;" onclick="deleteProject('${p.id}')">Delete</button>
-              </div>
-            `).join('')
-          : '<em>No saved projects yet</em>';
+      const projects = await new Promise(resolve => {
+        const tx = db.transaction('projects', 'readonly');
+        const req = tx.objectStore('projects').getAll();
+        req.onsuccess = e => resolve(e.target.result || []);
+        req.onerror = () => resolve([]);
       });
+
+      savedProjectsEl.innerHTML = projects.length
+        ? projects.map(p => `
+            <div class="project-row">
+              <strong>${escapeHtml(p.projectName)}</strong>
+              ${p.clientName ? `— ${escapeHtml(p.clientName)}` : ''}
+              <button class="btn btn-secondary" style="font-size:0.85rem; padding:5px 10px;" onclick="loadProjectById('${p.id}')">Load</button>
+              <button class="btn btn-danger" style="font-size:0.85rem; padding:5px 10px;" onclick="deleteProject('${p.id}')">Delete</button>
+            </div>
+          `).join('')
+        : '<em>No saved projects yet</em>';
     });
   }
-function importCSV(e) {
-  alert("CSV import loads metadata only.\n\nYou must re-upload the actual images for previews to appear.");
 
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = async ev => {
-    const lines = ev.target.result.split(/\r?\n/);
-    if (lines.length < 2) {
-      showError('Empty or invalid CSV');
-      return;
-    }
-
-    const headers = lines[0]
-      .toLowerCase()
-      .split(',')
-      .map(h => h.trim().replace(/^"|"$/g, ''));
-
-    const now = Date.now();
-
-    imageData = lines
-      .slice(1)
-      .filter(line => line.trim())
-      .map((line, idx) => {
-        const cols = line
-          .split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
-          .map(c => c.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
-
-        const obj = {
-          id: 'meta_import_' + now + '_' + idx,
-          imageId: 'img_import_' + now + '_' + idx,
-          originalName: 'imported',
-          newName: '',
-          title: '',
-          category: '',
-          condition: '',
-          quantity: '1',
-          estimatedPrice: '',
-          description: '',
-          notes: '',
-          detectedDate: new Date().toLocaleDateString()
-        };
-
-        headers.forEach((h, i) => {
-          const val = cols[i] || '';
-          if (h.includes('original')) obj.originalName = val || 'imported';
-          if (h.includes('new name') || h.includes('newname')) obj.newName = val;
-          if (h.includes('title')) obj.title = val;
-          if (h.includes('category')) obj.category = val;
-          if (h.includes('condition')) obj.condition = val;
-          if (h.includes('quantity')) obj.quantity = val || '1';
-          if (h.includes('price') || h.includes('est')) obj.estimatedPrice = val;
-          if (h.includes('desc')) obj.description = val;
-          if (h.includes('notes')) obj.notes = val;
-        });
-
-        return obj;
-      });
-
-    await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
-    scheduleAutoSave();
-  };
-
-  reader.readAsText(file);
-}
   async function exportCSV() {
     if (!imageData.length) {
       alert('No data');
@@ -902,7 +816,7 @@ function importCSV(e) {
     let csv = 'Row,Original Name,New Name,Title,Category,Condition,Quantity,Est. Price,Description,Notes\n';
 
     imageData.forEach((item, i) => {
-      csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g,' '))}","${csvSafe((item.notes || '').replace(/\n/g,' '))}"\n`;
+      csv += `${i + 1},"${csvSafe(item.originalName)}","${csvSafe(item.newName)}","${csvSafe(item.title)}","${csvSafe(item.category)}","${csvSafe(item.condition)}","${csvSafe(item.quantity)}","${csvSafe(item.estimatedPrice)}","${csvSafe((item.description || '').replace(/\n/g, ' '))}","${csvSafe((item.notes || '').replace(/\n/g, ' '))}"\n`;
     });
 
     const fileName = `${name}_manifest.csv`;
@@ -935,55 +849,68 @@ function importCSV(e) {
   }
 
   function importCSV(e) {
-    alert("CSV import loads metadata only.\n\nYou must re-upload the actual images for previews to appear.");
+    alert('CSV import loads metadata only.\n\nYou must re-upload the actual images for previews to appear.');
 
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
+
     reader.onload = async ev => {
       const lines = ev.target.result.split(/\r?\n/);
-      if (lines.length < 2) return showError('Empty or invalid CSV');
+      if (lines.length < 2) {
+        showError('Empty or invalid CSV');
+        return;
+      }
 
       const headers = lines[0]
         .toLowerCase()
         .split(',')
-        .map(h => h.trim().replace(/^"|"$/g,''));
+        .map(h => h.trim().replace(/^"|"$/g, ''));
 
-      imageData = lines.slice(1).filter(l => l.trim()).map((line, idx) => {
-        const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c =>
-          c.trim().replace(/^"|"$/g,'').replace(/""/g,'"')
-        );
+      const now = Date.now();
 
-        const obj = {
-          id: 'meta_import_' + Date.now() + idx,
-          imageId: 'img_import_' + Date.now() + idx,
-          originalName: 'imported',
-          newName: '',
-          title: '',
-          category: '',
-          condition: '',
-          quantity: '1',
-          estimatedPrice: '',
-          description: '',
-          notes: '',
-          detectedDate: new Date().toLocaleDateString()
-        };
+      imageData = lines
+        .slice(1)
+        .filter(line => line.trim())
+        .map((line, idx) => {
+          const cols = line
+            .split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+            .map(c => c.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
 
-        headers.forEach((h, i) => {
-          if (h.includes('new name') || h.includes('newname')) obj.newName = cols[i] || '';
-          if (h.includes('title')) obj.title = cols[i] || '';
-          if (h.includes('category')) obj.category = cols[i] || '';
-          if (h.includes('condition')) obj.condition = cols[i] || '';
-          if (h.includes('quantity')) obj.quantity = cols[i] || '1';
-          if (h.includes('price') || h.includes('est')) obj.estimatedPrice = cols[i] || '';
-          if (h.includes('desc')) obj.description = cols[i] || '';
-          if (h.includes('notes')) obj.notes = cols[i] || '';
+          const obj = {
+            id: 'meta_import_' + now + '_' + idx,
+            imageId: 'img_import_' + now + '_' + idx,
+            originalName: 'imported',
+            newName: '',
+            title: '',
+            category: '',
+            condition: '',
+            quantity: '1',
+            estimatedPrice: '',
+            description: '',
+            notes: '',
+            detectedDate: new Date().toLocaleDateString()
+          };
+
+          headers.forEach((h, i) => {
+            const val = cols[i] || '';
+            if (h.includes('original')) obj.originalName = val || 'imported';
+            if (h.includes('new name') || h.includes('newname')) obj.newName = val;
+            if (h.includes('title')) obj.title = val;
+            if (h.includes('category')) obj.category = val;
+            if (h.includes('condition')) obj.condition = val;
+            if (h.includes('quantity')) obj.quantity = val || '1';
+            if (h.includes('price') || h.includes('est')) obj.estimatedPrice = val;
+            if (h.includes('desc')) obj.description = val;
+            if (h.includes('notes')) obj.notes = val;
+          });
+
+          return obj;
         });
 
-        await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
-        scheduleAutoSave();
-      });
+      await refreshUI(`Imported ${imageData.length} rows (re-upload images)`);
+      scheduleAutoSave();
     };
 
     reader.readAsText(file);
