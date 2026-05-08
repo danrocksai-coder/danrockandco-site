@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact | Dan Rock & Co.</title>
+
+  <meta name="description" content="Get in touch with Dan Rock & Co. for mobile-first websites, digital systems, and practical creative strategy.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://www.danrockandco.com/contact.html">
+
+  <meta property="og:title" content="Contact | Dan Rock & Co.">
+  <meta property="og:description" content="Start a conversation about your next digital project.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root {
+      --gold: #C9A84C;
+      --charcoal: #0E0E0E;
+      --charcoal-mid: #1a1a1a;
+      --charcoal-border: #2e2e2e;
+      --white: #F5F2EC;
+      --white-dim: #a0998a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--charcoal);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      padding: 40px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--charcoal-border);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+    }
+
+    .brand span {
+      color: var(--gold);
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--white-dim);
+      text-decoration: none;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    section {
+      padding: 70px 0;
+      border-bottom: 1px solid var(--charcoal-border);
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    h1 {
+      font-size: 3.3rem;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--white-dim);
+      font-size: 1.1rem;
+      max-width: 650px;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .contact-info {
+      background: var(--charcoal-mid);
+      border: 1px solid var(--charcoal-border);
+      padding: 32px;
+    }
+
+    .contact-info h3 {
+      color: var(--gold);
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+    }
+
+    .contact-info p {
+      color: var(--white-dim);
+      margin-bottom: 18px;
+    }
+
+    .contact-links a {
+      display: block;
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.2s ease;
+    }
+
+    .contact-links a:hover {
+      color: var(--gold);
+    }
+
+    .form-box {
+      background: var(--charcoal-mid);
+      border: 1px solid var(--charcoal-border);
+      padding: 32px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #151515;
+      border: 1px solid var(--charcoal-border);
+      color: var(--white);
+      padding: 16px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .btn-main {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--charcoal);
+      padding: 18px 32px;
+      border: none;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-main:hover {
+      opacity: 0.9;
+    }
+
+    .note-box {
+      background: var(--charcoal-mid);
+      border: 1px solid var(--charcoal-border);
+      padding: 30px;
+    }
+
+    .note-box p {
+      color: var(--white-dim);
+      margin-bottom: 16px;
+    }
+
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      color: var(--white-dim);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+
+      h1 {
+        font-size: 2.6rem;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header>
+
+    <div class="brand">
+      Dan Rock <span>&amp;</span> Co.
+    </div>
+
+    <nav>
+      <a href="/index.html">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/case-studies.html">Work</a>
+    </nav>
+
+  </header>
+
+  <section class="hero">
+
+    <h1>
+      Start a conversation<span>.</span>
+    </h1>
+
+    <p>
+      If you're building something and want a practical second set of eyes, feel free to reach out. Whether it's a website, digital product idea, creative workflow, or online system, clarity is usually the best place to start.
+    </p>
+
+  </section>
+
+  <section>
+
+    <div class="contact-wrapper">
+
+      <div class="contact-info">
+
+        <h3>Contact Information</h3>
+
+        <p>
+          Based in Oxnard, California.
+        </p>
+
+        <div class="contact-links">
+
+          <a href="mailto:dan@danrockandco.com">
+            dan@danrockandco.com
+          </a>
+
+          <a href="tel:+16617140903">
+            +1 (661) 714-0903
+          </a>
+
+          <a href="#">
+            Instagram Placeholder
+          </a>
+
+          <a href="#">
+            LinkedIn Placeholder
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="form-box">
+
+        <h3 style="color: var(--gold); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem;">
+          Project Inquiry
+        </h3>
+
+        <!-- Replace YOUR_FORMSPREE_ID with your real Formspree endpoint -->
+
+        <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+          >
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          >
+
+          <textarea
+            name="message"
+            placeholder="Tell me a little about what you're building..."
+            required
+          ></textarea>
+
+          <button type="submit" class="btn-main">
+            Send Message
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="note-box">
+
+      <p>
+        Dan Rock & Co. is intentionally built around honest execution, practical systems, and thoughtful iteration.
+      </p>
+
+      <p>
+        The goal is not to overcomplicate projects — it's to help create digital experiences that feel clear, usable, and grounded in real-world functionality.
+      </p>
+
+    </div>
+
+  </section>
+
+  <footer>
+    &copy; 2026 Dan Rock &amp; Co. • Oxnard, California
+  </footer>
+
+</div>
+
+</body>
+</html>
