@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Your SEO Audit — Electrical ASAP | DanRockAndCo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F6F2;
+    --white: #FFFFFF;
+    --navy: #0C1B33;
+    --navy-mid: #162844;
+    --gold: #C98B0A;
+    --gold-light: #F0B830;
+    --gold-pale: #FDF3DC;
+    --border: #E0DAD0;
+    --text: #1A1A1A;
+    --muted: #777068;
+    --green: #1A6B45;
+    --green-pale: #EBF5EF;
+    --red: #8B2020;
+    --orange: #C05A1F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Literata', serif;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  .nav {
+    background: #0A0A0A;
+    padding: 0 32px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #1A1A1A;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo .mark {
+    width: 26px; height: 26px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 13px; color: #000;
+  }
+  .nav-logo .txt { color: rgba(255,255,255,0.6); }
+  .nav-logo .txt span { color: var(--gold-light); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+  .nav-home {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    border: 1px solid rgba(240,184,74,0.3);
+    padding: 5px 12px;
+  }
+
+  /* VIDEO SECTION */
+  .video-section {
+    background: #0A0A0A;
+    padding: 32px;
+  }
+  .video-inner { max-width: 900px; margin: 0 auto; }
+  .video-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .video-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--gold-light);
+    opacity: 0.5;
+  }
+
+  .video-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(22px, 3vw, 36px);
+    color: white;
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .video-title em { font-style: normal; color: var(--gold-light); }
+  .video-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1px solid #222;
+  }
+  .video-frame iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* CONTROLS */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .ctrl-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ctrl-btn.primary {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .ctrl-btn.primary:hover { background: rgba(201,139,10,0.1); }
+  .ctrl-btn.primary.active {
+    background: var(--gold);
+    color: #000;
+  }
+  .ctrl-btn.secondary {
+    border-color: #333;
+    color: #666;
+  }
+  .ctrl-btn.secondary:hover { border-color: #555; color: #999; }
+
+  .scroll-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.25);
+    margin-left: auto;
+  }
+  .scroll-status .current-section {
+    color: var(--gold-light);
+  }
+
+  /* PROGRESS TIMELINE */
+  .timeline {
+    display: flex;
+    gap: 4px;
+    margin-top: 12px;
+  }
+  .tl-item {
+    flex: 1;
+    height: 3px;
+    background: #222;
+    border-radius: 2px;
+    transition: background 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .tl-item.active { background: var(--gold); }
+  .tl-item.past { background: rgba(201,139,10,0.35); }
+  .tl-item .tl-tip {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1A1A1A;
+    border: 1px solid #333;
+    padding: 3px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: #aaa;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+  .tl-item:hover .tl-tip { opacity: 1; }
+
+  /* REPORT BODY */
+  .report-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 52px 32px 100px;
+  }
+
+  /* SECTION BLOCKS */
+  .report-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+    transition: opacity 0.3s;
+  }
+  .report-section.dimmed { opacity: 0.4; }
+  .report-section.active { opacity: 1; }
+
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .sec-header.active-header {
+    border-bottom-color: var(--gold);
+  }
+  .sec-timestamp {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    background: var(--navy);
+    color: var(--gold-light);
+    padding: 4px 10px;
+    flex-shrink: 0;
+  }
+  .sec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .sec-playing {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,139,10,0.3);
+    padding: 3px 10px;
+    flex-shrink: 0;
+    display: none;
+  }
+  .report-section.active .sec-playing { display: block; }
+
+  /* SCRIPT TEXT */
+  .script-text {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.85;
+    color: #444;
+    font-style: italic;
+  }
+  .script-text strong { color: var(--navy); font-style: normal; font-weight: 600; }
+
+  /* METRIC CARDS */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .metric-cell {
+    background: white;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .metric-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .mv-ok { color: var(--green); }
+  .mv-warn { color: var(--orange); }
+  .mv-bad { color: var(--red); }
+  .mv-gold { color: var(--gold); }
+
+  /* FINDING CARDS */
+  .finding {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+  }
+  .finding h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .finding p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+  .finding p strong { color: #444; font-weight: 600; }
+  .ftag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border: 1px solid;
+    white-space: nowrap;
+    align-self: start;
+    margin-top: 2px;
+  }
+  .ftag-high { border-color: var(--red); color: var(--red); }
+  .ftag-med { border-color: var(--orange); color: var(--orange); }
+  .ftag-low { border-color: #bbb; color: #999; }
+
+  /* ROADMAP */
+  .roadmap { display: flex; flex-direction: column; gap: 12px; }
+  .rm-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    align-items: start;
+    background: white;
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+  }
+  .rm-num {
+    width: 40px; height: 40px;
+    background: var(--navy);
+    color: var(--gold-light);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .rm-item h4 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .rm-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .rm-item p code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: #F0EDE8;
+    color: var(--navy);
+    padding: 1px 5px;
+  }
+
+  /* PHASE LABELS */
+  .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 8px;
+  }
+  .phase-label .pl-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .phase-label .pl-line { flex: 1; height: 1px; }
+  .pl-week .pl-tag { border-color: var(--gold); color: var(--gold); }
+  .pl-week .pl-line { background: var(--gold); opacity: 0.2; }
+  .pl-month .pl-tag { border-color: var(--orange); color: var(--orange); }
+  .pl-month .pl-line { background: var(--orange); opacity: 0.2; }
+  .pl-ongoing .pl-tag { border-color: var(--green); color: var(--green); }
+  .pl-ongoing .pl-line { background: var(--green); opacity: 0.2; }
+
+  /* CLOSING */
+  .closing-block {
+    background: var(--navy);
+    padding: 36px 40px;
+    margin-top: 8px;
+  }
+  .closing-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 14px;
+  }
+  .closing-block h3 em { font-style: normal; color: var(--gold-light); }
+  .closing-block p { font-size: 14.5px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 12px; }
+  .closing-block p strong { color: white; }
+  .closing-contact {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 8px;
+  }
+  .cc-item .cc-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 3px;
+  }
+  .cc-item .cc-val { font-size: 14px; color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  /* FOOTER */
+  .footer {
+    background: #0A0A0A;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-top: 1px solid #1A1A1A;
+  }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.25);
+    line-height: 1.7;
+  }
+  .footer-left a { color: var(--gold-light); text-decoration: none; }
+  .footer-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: #000;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .nav { padding: 0 16px; }
+    .nav-tag { display: none; }
+    .video-section { padding: 20px 16px; }
+    .report-body { padding: 32px 16px 80px; }
+    .finding { grid-template-columns: 1fr; }
+    .ftag { display: none; }
+    .closing-block { padding: 28px 20px; }
+    .footer { padding: 20px 16px; }
+    .controls { gap: 8px; }
+    .scroll-status { display: none; }
+  }
+  /* PROPOSAL STYLES */
+  .letter { background:white;border:1px solid var(--border);border-top:4px solid var(--gold);padding:36px 40px;margin-bottom:40px; }
+  .letter-greeting { font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:18px; }
+  .letter p { font-size:15px;color:#444;line-height:1.85;margin-bottom:14px; }
+  .letter p:last-child { margin-bottom:0; }
+  .letter strong { color:var(--navy);font-weight:600; }
+  .highlight { background:var(--gold-pale);border-left:3px solid var(--gold);padding:14px 18px;margin:18px 0;font-size:14.5px;color:#555;font-style:italic; }
+  .highlight strong { color:var(--navy);font-style:normal; }
+  .section-title { display:flex;align-items:center;gap:14px;margin-bottom:20px;margin-top:44px; }
+  .section-title h2 { font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--navy); }
+  .section-title::after { content:'';flex:1;height:1px;background:var(--border); }
+  .deliverables-box { background:var(--navy);padding:32px 36px;margin-bottom:40px; }
+  .deliverables-box h3 { font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;margin-bottom:6px; }
+  .deliverables-box .sub { font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;font-style:italic; }
+  .deliverable-row { display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.07); }
+  .deliverable-row:last-child { border-bottom:none;padding-bottom:0; }
+  .d-icon { width:34px;height:34px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0; }
+  .d-content h4 { font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:white;margin-bottom:3px; }
+  .d-content p { font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5; }
+  .d-content p strong { color:var(--gold-light);font-weight:500; }
+  .pilot-block { background:white;border:1px solid var(--border);margin-bottom:28px;overflow:hidden; }
+  .pilot-header { background:var(--gold);padding:18px 26px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px; }
+  .pilot-header h3 { font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:#000; }
+  .pilot-price { font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:#000; }
+  .pilot-price span { font-size:11px;font-weight:500;opacity:0.6;font-family:'DM Mono',monospace;letter-spacing:0.08em; }
+  .pilot-body { padding:24px; }
+  .pilot-body p { font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:18px; }
+  .pilot-body strong { color:var(--text); }
+  .pilot-week-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:18px; }
+  .pilot-week { background:#F8F6F2;padding:14px 12px;text-align:center; }
+  .pw-label { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px; }
+  .pw-amount { font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:3px; }
+  .pw-note { font-size:10px;color:var(--muted);font-style:italic; }
+  .pw-note.gold { color:var(--gold);font-style:normal;font-weight:500;font-family:'DM Mono',monospace;font-size:9px; }
+  .pilot-deliverables { background:#F8F6F2;border:1px solid var(--border);padding:16px 18px; }
+  .pd-label { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px; }
+  .pilot-deliverables ul { list-style:none;display:flex;flex-wrap:wrap;gap:8px; }
+  .pilot-deliverables ul li { font-size:12.5px;color:var(--navy);background:white;border:1px solid var(--border);padding:4px 10px;font-weight:500; }
+  .pilot-deliverables ul li::before { content:'✓ ';color:var(--green);font-weight:600; }
+  .setup-block { background:white;border:1px solid var(--border);margin-bottom:28px;overflow:hidden; }
+  .setup-header { background:var(--navy-mid);padding:16px 24px;display:flex;justify-content:space-between;align-items:center; }
+  .setup-header h3 { font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:white; }
+  .setup-price { font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold-light); }
+  .setup-body { padding:22px 24px; }
+  .setup-body p { font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.7; }
+  .setup-items { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+  .setup-item { display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text);padding:10px 12px;background:#F8F6F2;border:1px solid var(--border); }
+  .si-icon { font-size:15px;flex-shrink:0; }
+  .si-text strong { display:block;font-weight:600;color:var(--navy);font-size:12.5px;margin-bottom:1px; }
+  .si-text span { font-size:11px;color:var(--muted);font-family:'DM Mono',monospace; }
+  .always-included { background:var(--green-pale);border:1px solid #B8DFC8;padding:24px 28px;margin-bottom:28px; }
+  .ai-title { font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--green);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px; }
+  .ai-title::before { content:'✓';font-size:15px; }
+  .ai-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+  .ai-item { display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:#2A5C3A;line-height:1.5; }
+  .ai-item .dot { width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:6px; }
+  .mtm-block { background:var(--gold-pale);border:1px solid #E8D4A0;border-left:4px solid var(--gold);padding:22px 26px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start; }
+  .mtm-icon { font-size:22px;flex-shrink:0;margin-top:2px; }
+  .mtm-block h4 { font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:5px; }
+  .mtm-block p { font-size:13.5px;color:#6B5A2A;line-height:1.7; }
+  .mtm-block p strong { color:var(--navy); }
+  .comparison-block { background:white;border:1px solid var(--border);padding:28px 32px;margin-bottom:28px; }
+  .comparison-block h3 { font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:18px; }
+  .comparison-row { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px; }
+  .comp-side { padding:18px;border:1px solid var(--border); }
+  .comp-side.theirs { border-color:#DDB0B0;background:#FDF5F5; }
+  .comp-side.ours { border-color:#B8DFC8;background:var(--green-pale); }
+  .cs-label { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px; }
+  .comp-side.theirs .cs-label { color:var(--red); }
+  .comp-side.ours .cs-label { color:var(--green); }
+  .comp-side ul { list-style:none; }
+  .comp-side ul li { font-size:13px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.05);color:#444;line-height:1.5; }
+  .comp-side ul li:last-child { border-bottom:none; }
+  .comp-side.theirs ul li::before { content:'✗ ';color:var(--red); }
+  .comp-side.ours ul li::before { content:'✓ ';color:var(--green);font-weight:700; }
+  .comparison-note { font-size:13px;color:var(--muted);font-style:italic;line-height:1.7;padding-top:14px;border-top:1px solid var(--border); }
+  .comparison-note strong { color:var(--navy);font-style:normal; }
+  .scope-note { background:#F8F6F2;border:1px solid var(--border);padding:18px 22px;margin-bottom:28px;font-size:13.5px;color:var(--muted);line-height:1.7; }
+  .scope-note strong { color:var(--text);font-weight:600; }
+  .closing { background:var(--navy);padding:40px 44px;margin-bottom:0; }
+  .closing h3 { font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:white;margin-bottom:14px;line-height:1.2; }
+  .closing h3 em { font-style:normal;color:var(--gold-light); }
+  .closing p { font-size:15px;color:rgba(255,255,255,0.6);line-height:1.8;max-width:560px;margin-bottom:12px; }
+  .closing p strong { color:white; }
+  .next-step-btn { display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 26px;text-decoration:none;margin-bottom:28px;margin-top:4px; }
+  .closing-contact { display:flex;gap:24px;flex-wrap:wrap;padding-top:22px;border-top:1px solid rgba(255,255,255,0.1); }
+  .cc-label { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:3px; }
+  .cc-val { font-size:14px;color:rgba(255,255,255,0.75);font-weight:500; }
+  .navy-mid { background:#162844; }
+
+  @media (max-width:600px) {
+    .pilot-week-grid { grid-template-columns:repeat(2,1fr); }
+    .setup-items { grid-template-columns:1fr; }
+    .comparison-row { grid-template-columns:1fr; }
+    .ai-grid { grid-template-columns:1fr; }
+    .letter { padding:24px 20px; }
+    .deliverables-box { padding:24px 20px; }
+    .closing { padding:28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="https://danrockandco.com" class="nav-logo" target="_blank">
+    <div class="mark">D</div>
+    <div class="txt">Dan<span>Rock</span>&Co</div>
+  </a>
+  <div class="nav-right">
+    <div class="nav-tag">Client Report · Confidential</div>
+    <a href="https://danrockandco.com" class="nav-home" target="_blank">← Back to Site</a>
+  </div>
+</nav>
+
+<!-- VIDEO SECTION -->
+<div class="video-section">
+  <div class="video-inner">
+    <div class="video-label">Your Personalized Audit Walkthrough</div>
+    <h1 class="video-title">Your Free SEO Report — <em>Electrical ASAP</em></h1>
+    <p class="video-sub">Watch the walkthrough, then scroll through the full written report below. They match word for word.</p>
+
+    <div class="video-frame">
+      <iframe id="ytPlayer"
+        src="https://www.youtube.com/embed/dL58PCHf2pk?enablejsapi=1&rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <button class="ctrl-btn primary active" id="autoScrollBtn" onclick="toggleAutoScroll()">
+        <span id="scrollIcon">⟳</span>
+        <span id="scrollLabel">Auto-Scroll On</span>
+      </button>
+      <button class="ctrl-btn secondary" onclick="scrollToTop()">↑ Back to Top</button>
+      <div class="scroll-status">
+        Now playing: <span class="current-section" id="currentSectionLabel">Intro</span>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline">
+      <div class="tl-item active" id="tl-0" onclick="seekTo(0)"><div class="tl-tip">0:00 Intro</div></div>
+      <div class="tl-item" id="tl-1" onclick="seekTo(43)"><div class="tl-tip">0:43 The Numbers</div></div>
+      <div class="tl-item" id="tl-2" onclick="seekTo(78)"><div class="tl-tip">1:18 Backlinks</div></div>
+      <div class="tl-item" id="tl-3" onclick="seekTo(107)"><div class="tl-tip">1:47 Mobile Speed</div></div>
+      <div class="tl-item" id="tl-4" onclick="seekTo(127)"><div class="tl-tip">2:07 AI Search</div></div>
+      <div class="tl-item" id="tl-5" onclick="seekTo(152)"><div class="tl-tip">2:32 Keywords</div></div>
+      <div class="tl-item" id="tl-6" onclick="seekTo(181)"><div class="tl-tip">3:01 Quick Wins</div></div>
+      <div class="tl-item" id="tl-7" onclick="seekTo(310)"><div class="tl-tip">5:10 Closing</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT BODY -->
+<div class="report-body">
+
+  <!-- SECTION 0: INTRO -->
+  <div class="report-section active" id="sec-0">
+    <div class="sec-header active-header">
+      <div class="sec-timestamp">0:00</div>
+      <div class="sec-title">Hey Shay — Here's the Big Picture</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "Hey Shay — Dan here from DanRockAndCo. So I pulled a full audit on electricalasap.com and honestly — <strong>you guys are doing better than most.</strong> Like legitimately. The site is clean, it loads fast on desktop, Google can find you, your content is solid. You're already ahead of a lot of competitors just on the basics alone.<br><br>
+      But here's the thing — and this is actually exciting — <strong>you're sitting on a ton of untapped potential right now.</strong> Like Kern County is yours for the taking. Nobody in your market is doing what needs to be done to actually dominate local search. And I want to show you exactly where the gaps are and how close you are to owning it. Let's get into it."
+    </div>
+  </div>
+
+  <!-- SECTION 1: THE NUMBERS -->
+  <div class="report-section dimmed" id="sec-1">
+    <div class="sec-header">
+      <div class="sec-timestamp">0:43</div>
+      <div class="sec-title">The Numbers — Real Quick</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "Overall grade: <strong>B+</strong>. On-page SEO: <strong>A</strong>. Desktop speed: <strong>92 out of 100</strong>. You've got SSL, a sitemap, analytics, structured data — all the foundational stuff is there and it's solid. The weak spots? Mobile speed score is a <strong>73</strong> — we want that above 85. Domain strength is sitting at <strong>21 out of 100</strong>. And you've only got <strong>34 dofollow backlinks</strong>. Those three things are what's keeping you from jumping to the top."
+    </div>
+    <div class="metric-row">
+      <div class="metric-cell"><div class="metric-val mv-gold">B+</div><div class="metric-lbl">Overall Grade</div></div>
+      <div class="metric-cell"><div class="metric-val mv-ok">A</div><div class="metric-lbl">On-Page SEO</div></div>
+      <div class="metric-cell"><div class="metric-val mv-ok">92</div><div class="metric-lbl">Desktop Speed</div></div>
+      <div class="metric-cell"><div class="metric-val mv-warn">73</div><div class="metric-lbl">Mobile Speed</div></div>
+      <div class="metric-cell"><div class="metric-val mv-bad">21</div><div class="metric-lbl">Domain Strength</div></div>
+      <div class="metric-cell"><div class="metric-val mv-bad">34</div><div class="metric-lbl">Dofollow Backlinks</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: BACKLINKS -->
+  <div class="report-section dimmed" id="sec-2">
+    <div class="sec-header">
+      <div class="sec-timestamp">1:18</div>
+      <div class="sec-title">Backlinks — The Big One</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "This is the big one. You've got 103 backlinks total but only <strong>34 of them are actually passing authority</strong> to your site. And here's the kicker — <strong>60 of those backlinks just use your web address as the link text.</strong> That's basically a wasted vote in Google's eyes. You need links that say 'Bakersfield electrician' or 'licensed electrician Kern County' — that's what actually moves the needle."
+    </div>
+    <div class="finding">
+      <div>
+        <h4>🔗 Backlink Profile Is Weak — And the Quality Is Worse Than the Quantity</h4>
+        <p>Domain Strength of just <strong>21</strong>, only <strong>34 dofollow backlinks</strong>, and 60 out of 103 backlinks use raw URL anchor text. Google needs to see keyword-rich anchor text like "Bakersfield electrician" to build real local authority.</p>
+      </div>
+      <div class="ftag ftag-high">Critical</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: MOBILE SPEED -->
+  <div class="report-section dimmed" id="sec-3">
+    <div class="sec-header">
+      <div class="sec-timestamp">1:47</div>
+      <div class="sec-title">Mobile Speed — Real Money Walking Out</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "Your desktop? Blazing fast. Under a second. Mobile though — <strong>7.5 seconds before someone can even tap anything.</strong> Think about that. Someone's got an electrical emergency, they're on their phone, your site takes 7 seconds — they already called the next guy. That's real money walking out the door."
+    </div>
+    <div class="metric-row">
+      <div class="metric-cell"><div class="metric-val mv-ok">0.9s</div><div class="metric-lbl">Desktop Load</div></div>
+      <div class="metric-cell"><div class="metric-val mv-bad">7.5s</div><div class="metric-lbl">Mobile Interactive</div></div>
+      <div class="metric-cell"><div class="metric-val mv-warn">3.5s</div><div class="metric-lbl">First Paint Mobile</div></div>
+      <div class="metric-cell"><div class="metric-val mv-warn">73</div><div class="metric-lbl">Mobile Score</div></div>
+    </div>
+    <div class="finding">
+      <div>
+        <h4>📱 Mobile Speed Is a Real Problem</h4>
+        <p>Over half your customers search on their phone. A <strong>7.5 second</strong> Time to Interactive means emergency callers are gone before your page loads. Google also uses mobile speed as a direct ranking signal.</p>
+      </div>
+      <div class="ftag ftag-high">Critical</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: AI SEARCH -->
+  <div class="report-section dimmed" id="sec-4">
+    <div class="sec-header">
+      <div class="sec-timestamp">2:07</div>
+      <div class="sec-title">AI Search — First Mover Advantage</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "ChatGPT, Perplexity, Google's AI results — <strong>these are becoming where people find local services now.</strong> You've got no llms.txt file, which is basically the signal that tells these AI systems who you are and what you do. Your competitors aren't doing this either — which means <strong>whoever does it first owns that space.</strong> Right now that could be you."
+    </div>
+    <div class="finding">
+      <div>
+        <h4>🤖 AI Search Engines Can't Fully See You — GEO Grade: C+</h4>
+        <p>No <strong>llms.txt file</strong> means ChatGPT, Perplexity, and Google AI Overviews may overlook you entirely. This is the fastest-growing traffic source in search and most of your local competitors haven't addressed it — first mover advantage is available right now.</p>
+      </div>
+      <div class="ftag ftag-high">Critical</div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: KEYWORDS -->
+  <div class="report-section dimmed" id="sec-5">
+    <div class="sec-header">
+      <div class="sec-timestamp">2:32</div>
+      <div class="sec-title">Keywords — Doing the Work, Not Getting Credit</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "'Kern County' shows up <strong>23 times on your homepage.</strong> But it's not in your title tag. It's not in your main headline. Google weighs those spots way heavier than body text. <strong>You're doing the work — you're just not getting the credit for it.</strong> And your title tag is 45 characters. Google gives you 60. Those extra 15 characters are free advertising on every single search result and right now you're leaving them blank."
+    </div>
+    <div class="finding">
+      <div>
+        <h4>🔑 "Kern County" Appears 23 Times on Page — Zero Times in Title or H1</h4>
+        <p>Your highest-frequency keywords are buried in body text where Google weighs them least. Moving "Kern County" and "licensed electrician" into your title tag and H1 is a free, immediate ranking improvement.</p>
+      </div>
+      <div class="ftag ftag-med">Important</div>
+    </div>
+    <div class="finding">
+      <div>
+        <h4>📏 Title Tag Is 45 Characters — Google Gives You 60</h4>
+        <p>Current: <strong>"Electrician Bakersfield, CA | Electrical ASAP"</strong> — 45 chars. Recommended: <strong>"Licensed Electrician Bakersfield &amp; Kern County | Electrical ASAP"</strong> — adds trust signal and geographic authority.</p>
+      </div>
+      <div class="ftag ftag-med">Important</div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: QUICK WINS -->
+  <div class="report-section dimmed" id="sec-6">
+    <div class="sec-header">
+      <div class="sec-timestamp">3:01</div>
+      <div class="sec-title">The Roadmap — Exact Next Steps</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "These are fast. Some of these are like 5 minutes. Here's exactly what to do and when."
+    </div>
+
+    <div class="phase-label pl-week">
+      <div class="pl-tag">Week 1 — Quick Wins</div>
+      <div class="pl-line"></div>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="rm-num">1</div>
+        <div>
+          <h4>Rewrite the Title Tag — 5 Minutes</h4>
+          <p>Change to: <code>"Licensed Electrician Bakersfield & Kern County | Electrical ASAP"</code> — adds "Licensed" as a trust signal and gets Kern County into the title where it belongs.</p>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-num">2</div>
+        <div>
+          <h4>Add "Kern County" to Your H1 Headline — 5 Minutes</h4>
+          <p>It appears <code>23 times</code> on the page but zero times in the headline Google weighs most. Free ranking boost, right now.</p>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-num">3</div>
+        <div>
+          <h4>Create an llms.txt File — 2 Hours</h4>
+          <p>A simple text file at <code>electricalasap.com/llms.txt</code> that tells AI search engines exactly who you are and where you serve. First mover advantage across your entire market.</p>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-num">4</div>
+        <div>
+          <h4>Install Facebook Pixel + Fix Alt Tag — 20 Minutes</h4>
+          <p>Pixel builds a retargeting audience silently in the background from day one — free. One image is missing alt text — quick fix.</p>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-num">5</div>
+        <div>
+          <h4>Add DMARC Record + Protect Your Email — 30 Minutes</h4>
+          <p>Your domain is currently open to email spoofing. Your email address is exposed to spam scrapers. Both are DNS fixes through Google Domains.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-label pl-month" style="margin-top:20px;">
+      <div class="pl-tag">Month 1 — Technical</div>
+      <div class="pl-line"></div>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="rm-num">6</div>
+        <div>
+          <h4>Enable HTTP/2 + Kill the Redirect Chain</h4>
+          <p>A redirect chain is adding <code>0.63s</code> of pure delay before the page even starts loading on mobile. HTTP/2 enables parallel loading. Together these push your mobile score above 85.</p>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-num">7</div>
+        <div>
+          <h4>Clean Up Inline Styles + iFrames</h4>
+          <p>Four lines of hardcoded CSS and at least one iFrame are adding code complexity and slight performance drag. Move them to your Astro stylesheet.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-label pl-ongoing" style="margin-top:20px;">
+      <div class="pl-tag">Ongoing — Highest ROI</div>
+      <div class="pl-line"></div>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="rm-num">8</div>
+        <div>
+          <h4>Strategic Backlink Campaign — With Anchor Text Intent</h4>
+          <p>Submit to Yelp, Angi, HomeAdvisor, Houzz, BBB, Nextdoor, Chamber of Commerce — but with deliberate anchor text: <code>"Bakersfield electrician"</code> not just your URL. Target: <code>+25 quality referring domains in 90 days</code>.</p>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-num">9</div>
+        <div>
+          <h4>Build a Local YouTube Content Engine</h4>
+          <p>Nobody in Bakersfield is doing this. Videos like <code>"Cost to replace a panel in Kern County"</code> and <code>"Do I need a permit for an EV charger in Bakersfield?"</code> build backlinks, AI search authority, and YouTube subscribers simultaneously — 24 hours a day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: CLOSING -->
+  <div class="report-section dimmed" id="sec-7">
+    <div class="sec-header">
+      <div class="sec-timestamp">5:10</div>
+      <div class="sec-title">The Bottom Line</div>
+      <div class="sec-playing">▶ Now Playing</div>
+    </div>
+    <div class="script-text">
+      "Look — the bottom line is this. Electrical ASAP has a really strong website. Better than most businesses I look at. But <strong>strong foundation plus the right moves?</strong> That's how you stop paying 50 bucks a lead on Angi and start having customers call you because they already trust you from the content they've been watching. <strong>Kern County is wide open right now.</strong> I'd love to help you take it."
+    </div>
+    <div class="closing-block">
+      <h3>Kern County Is Wide Open.<br><em>Let's Go Take It.</em></h3>
+      <p>Electrical ASAP has everything it needs to dominate local search in Bakersfield and Kern County. The foundation is solid. The gaps are fixable. And none of your competitors are making these moves yet.</p>
+      <p><strong>Reach out whenever you're ready. No pressure, no pitch — just let me know what questions you have.</strong></p>
+      <div class="closing-contact">
+        <div class="cc-item">
+          <div class="cc-lbl">Text or Call</div>
+          <div class="cc-val">(661) 714-0903</div>
+        </div>
+        <div class="cc-item">
+          <div class="cc-lbl">Email</div>
+          <div class="cc-val">dan@danrockandco.com</div>
+        </div>
+        <div class="cc-item">
+          <div class="cc-lbl">Website</div>
+          <div class="cc-val">danrockandco.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROPOSAL DIVIDER -->
+<div style="background:#0A0A0A;padding:48px 32px 0;border-top:1px solid #1A1A1A;">
+  <div style="max-width:860px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#F0B830;white-space:nowrap;">Service Proposal</div>
+      <div style="flex:1;height:1px;background:rgba(240,184,74,0.2);"></div>
+    </div>
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,3.5vw,42px);color:white;line-height:1.1;padding-bottom:32px;">
+      Interested in Moving Forward?<br><span style="color:#F0B830;">Here's Exactly What That Looks Like.</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROPOSAL BODY EMBEDDED -->
+<div style="background:#F8F6F2;">
+<div style="max-width:860px;margin:0 auto;padding:48px 32px 0;">
+
+  <!-- INTRO LETTER -->
+  <div class="letter">
+    <div class="letter-greeting">Hi Shay,</div>
+    <p>After reviewing everything in the audit above, there's one gap that stands out above everything else — and it's the same gap that's keeping you dependent on paid lead sources like Angi instead of owning your own pipeline:</p>
+    <div class="highlight"><strong>Electrical ASAP has no YouTube presence.</strong> Zero videos. Zero subscribers. In a market where your customers are actively searching for answers on YouTube every single day — questions about panel upgrades, EV charger costs, emergency electrical, and more — your competitors aren't answering those questions either. That's the opportunity.</div>
+    <p>This proposal outlines exactly how I'll build and run your YouTube content engine — done for you, every week, with no long-term contracts and no pressure. You stay because it's working, not because you're locked in.</p>
+    <p>I'm ready to start <strong>June 1st</strong> if you are.</p>
+    <p style="margin-top:24px;font-style:italic;color:#777068;">— Dan<br><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;">DanRockAndCo.com · dan@danrockandco.com</span></p>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="section-title"><h2>What I Do For You</h2></div>
+  <div class="deliverables-box">
+    <h3>Everything Is Done For You</h3>
+    <p class="sub">You run the business. I run the content engine.</p>
+    <div class="deliverable-row">
+      <div class="d-icon">🎬</div>
+      <div class="d-content">
+        <h4>Long-Form YouTube Videos — Fully Produced</h4>
+        <p>Scripted, voiced, edited, optimized, and uploaded. Each video targets a specific search question your Bakersfield customers are already asking. <strong>No filming required on your end.</strong></p>
+      </div>
+    </div>
+    <div class="deliverable-row">
+      <div class="d-icon">⚡</div>
+      <div class="d-content">
+        <h4>YouTube Shorts — Clipped &amp; Optimized</h4>
+        <p>Short-form clips pulled from each long-form video. Shorts are currently <strong>YouTube's fastest growth tool</strong> — they drive new subscribers directly into your long-form content.</p>
+      </div>
+    </div>
+    <div class="deliverable-row">
+      <div class="d-icon">📣</div>
+      <div class="d-content">
+        <h4>Community Posts</h4>
+        <p>Regular channel updates that keep your audience engaged between videos and signal activity to the YouTube algorithm.</p>
+      </div>
+    </div>
+    <div class="deliverable-row">
+      <div class="d-icon">🔍</div>
+      <div class="d-content">
+        <h4>Full YouTube SEO — Every Upload</h4>
+        <p>Every video gets keyword-researched titles, descriptions, tags, and thumbnails. <strong>Example titles already researched for your market:</strong> "Cost to Replace Electrical Panel in Kern County" · "Do You Need a Permit for EV Charger in Bakersfield?" · "Breaker Keeps Tripping in Bakersfield? Here's Why."</p>
+      </div>
+    </div>
+    <div class="deliverable-row">
+      <div class="d-icon">📊</div>
+      <div class="d-content">
+        <h4>Weekly Performance Report — Every Friday</h4>
+        <p>A clean summary of your channel's views, watch time, subscriber growth, and top performing content. You always know exactly what's happening.</p>
+      </div>
+    </div>
+    <div class="deliverable-row">
+      <div class="d-icon">🌐</div>
+      <div class="d-content">
+        <h4>Free Monthly Website SEO Audit</h4>
+        <p>Once a month I run a full audit on electricalasap.com and send you the report. <strong>No charge. No obligation.</strong> Forward it to your website team or use it however you like.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 90 DAY PILOT -->
+  <div class="section-title"><h2>The 90-Day Pilot Program</h2></div>
+  <div class="pilot-block">
+    <div class="pilot-header">
+      <h3>90 Days — Paid Weekly — Starts June 1</h3>
+      <div class="pilot-price">$500 <span>/ week</span></div>
+    </div>
+    <div class="pilot-body">
+      <p>The entire 90-day engagement runs at <strong>$500 per week</strong> — paid weekly, every week. This is a discounted pilot rate designed to give us both the opportunity to build something real without either side carrying unnecessary risk. Your only commitment is one week at a time. The <strong>$397 setup fee</strong> is paid on Day 1 of Week 1 and covers everything needed to launch your channel at a professional level from day one.</p>
+      <div class="pilot-week-grid">
+        <div class="pilot-week">
+          <div class="pw-label">Week 1</div>
+          <div class="pw-amount">$897</div>
+          <div class="pw-note gold">$500 + $397 setup</div>
+        </div>
+        <div class="pilot-week">
+          <div class="pw-label">Weeks 2–13</div>
+          <div class="pw-amount">$500</div>
+          <div class="pw-note">Per week · every week</div>
+        </div>
+        <div class="pilot-week">
+          <div class="pw-label">Total 90 Days</div>
+          <div class="pw-amount">$6,897</div>
+          <div class="pw-note">Inc. setup fee</div>
+        </div>
+        <div class="pilot-week">
+          <div class="pw-label">After 90 Days</div>
+          <div class="pw-amount">Your<br>choice</div>
+          <div class="pw-note">Pick your tier</div>
+        </div>
+      </div>
+      <div class="pilot-deliverables">
+        <div class="pd-label">Every Week for 90 Days — Same Deliverables Throughout</div>
+        <ul>
+          <li>1 long-form video per week</li>
+          <li>3 YouTube Shorts per week</li>
+          <li>2 community posts per month</li>
+          <li>Weekly performance report every Friday</li>
+          <li>Free monthly website SEO audit</li>
+          <li>Direct access — text or call anytime</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP FEE -->
+  <div class="setup-block">
+    <div class="setup-header">
+      <h3>One-Time Setup Fee — What It Covers</h3>
+      <div class="setup-price">$397</div>
+    </div>
+    <div class="setup-body">
+      <p>Paid on Day 1 of Week 1. This covers the tools and build work needed to launch your channel at a professional level from day one — not something patched together over time.</p>
+      <div class="setup-items">
+        <div class="setup-item"><div class="si-icon">🎙️</div><div class="si-text"><strong>ElevenLabs AI Voiceover</strong><span>Professional-grade voice · $22/mo</span></div></div>
+        <div class="setup-item"><div class="si-icon">✂️</div><div class="si-text"><strong>CapCut Pro Editing</strong><span>Video editing suite · $10/mo</span></div></div>
+        <div class="setup-item"><div class="si-icon">🎨</div><div class="si-text"><strong>Canva Pro</strong><span>Thumbnails &amp; channel art · $15/mo</span></div></div>
+        <div class="setup-item"><div class="si-icon">🔍</div><div class="si-text"><strong>TubeBuddy / VidIQ</strong><span>YouTube keyword research · $20/mo</span></div></div>
+        <div class="setup-item"><div class="si-icon">📺</div><div class="si-text"><strong>Channel Build &amp; Optimization</strong><span>Banner, about, keywords, links</span></div></div>
+        <div class="setup-item"><div class="si-icon">📅</div><div class="si-text"><strong>90-Day Content Calendar</strong><span>Topics mapped &amp; scheduled</span></div></div>
+        <div class="setup-item"><div class="si-icon">🤖</div><div class="si-text"><strong>3 Business Automations</strong><span>Notification &amp; alert systems · Free</span></div></div>
+        <div class="setup-item"><div class="si-icon">🎬</div><div class="si-text"><strong>First 2 Videos Produced</strong><span>Ready to publish Week 1</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFTER 90 DAYS -->
+  <div class="section-title"><h2>After 90 Days — What Happens Next</h2></div>
+  <div class="mtm-block">
+    <div class="mtm-icon">📈</div>
+    <div>
+      <h4>At Day 90 — We Look at the Results Together</h4>
+      <p>After 90 days you'll have a real YouTube channel with real content, real data, and real search visibility across Bakersfield and Kern County. At that point we sit down, review what's working, and I'll present ongoing tier options based on what the channel needs to keep growing. <strong>You choose the level that fits your goals and your budget.</strong> Still month-to-month, still no contracts, still cancel anytime with 7 days notice. No pressure — ever.</p>
+    </div>
+  </div>
+
+  <!-- ALWAYS INCLUDED -->
+  <div class="always-included">
+    <div class="ai-title">Always Included — Every Week of the 90 Days</div>
+    <div class="ai-grid">
+      <div class="ai-item"><div class="dot"></div>Weekly YouTube performance report sent every Friday</div>
+      <div class="ai-item"><div class="dot"></div>Free monthly website SEO audit — yours to use however you like</div>
+      <div class="ai-item"><div class="dot"></div>Direct access — text or call Dan anytime</div>
+      <div class="ai-item"><div class="dot"></div>Full YouTube SEO on every single upload</div>
+      <div class="ai-item"><div class="dot"></div>Paid weekly — one week at a time, no lock-in</div>
+      <div class="ai-item"><div class="dot"></div>One dedicated person — not an agency handing you off</div>
+    </div>
+  </div>
+
+  <!-- MONTH TO MONTH -->
+  <div class="mtm-block">
+    <div class="mtm-icon">🤝</div>
+    <div>
+      <h4>Month-to-Month. Always.</h4>
+      <p>There are no contracts, no minimum commitments, and no cancellation fees. <strong>You stay because it's working.</strong> If you want to pause or stop — just give me 7 days notice. That's it. If I'm not delivering results, you shouldn't be paying for it.</p>
+    </div>
+  </div>
+
+  <!-- ANGI COMPARISON -->
+  <div class="section-title"><h2>The Real Cost Comparison</h2></div>
+  <div class="comparison-block">
+    <h3>What You're Paying For Now vs. What This Builds</h3>
+    <div class="comparison-row">
+      <div class="comp-side theirs">
+        <div class="cs-label">Angi / Paid Leads — What You Have Now</div>
+        <ul>
+          <li>~$50 per lead — whether you win the job or not</li>
+          <li>40+ leads per month = $2,000+ spent with nothing to show</li>
+          <li>Competitors get the same leads at the same time</li>
+          <li>You own nothing — stop paying, leads stop immediately</li>
+          <li>No brand building, no authority, no long-term value</li>
+        </ul>
+      </div>
+      <div class="comp-side ours">
+        <div class="cs-label">YouTube Content Engine — What This Builds</div>
+        <ul>
+          <li>Customers find YOU — they already trust you before calling</li>
+          <li>Content lives permanently — keeps working after you stop paying</li>
+          <li>No competition — you're the only electrician with a real channel</li>
+          <li>Builds domain authority, AI search visibility, and backlinks</li>
+          <li>Brand you own, audience you own, rankings you own</li>
+        </ul>
+      </div>
+    </div>
+    <p class="comparison-note">At <strong>40 Angi leads per month at $50 each</strong>, you're spending $2,000/month for leads you don't own and can't compound. The Pilot Month costs the same — and builds something that works for you permanently.</p>
+  </div>
+
+  <!-- SCOPE NOTE -->
+  <div class="scope-note">
+    <strong>Scope of work:</strong> This proposal covers YouTube content production and channel management only. Website development, social media management, paid advertising, and other services are outside this scope and would be discussed separately if needed. I want to do one thing exceptionally well — not ten things adequately.
+  </div>
+
+  <!-- NEGOTIATION -->
+  <div class="mtm-block" style="margin-bottom:0;">
+    <div class="mtm-icon">💬</div>
+    <div>
+      <h4>These Numbers Are a Starting Point — Not a Take It or Leave It</h4>
+      <p>Every business is different and I understand that. The pricing in this proposal is based on what I believe is fair for the work involved — but I'm genuinely open to a conversation. If the pilot structure doesn't quite fit where you're at right now, let's talk. <strong>Maybe we start smaller, adjust the deliverables, or phase things in differently.</strong> I'd rather build something that works for both of us long term than lose the opportunity over numbers we haven't even discussed yet. Reach out and let's figure it out together — no pressure, no hard sell, just a real conversation.</p>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing" style="margin-top:0;">
+    <h3>Ready to Own Your<br><em>Market on YouTube?</em></h3>
+    <p>The window in Bakersfield is open right now. <strong>No other local electrician has a real YouTube presence.</strong> The first one to build it consistently will own that search real estate for years. I'd like that to be Electrical ASAP.</p>
+    <p>To move forward, just reach out and we'll confirm your start date of <strong>June 1st</strong>. Week 1 payment plus the $397 setup fee kicks things off and I'll have your channel built and your first videos in production within the first 7 days.</p>
+    <a class="next-step-btn" href="sms:+16617140903">Text Dan to Get Started →</a>
+    <div class="closing-contact">
+      <div class="cc-item"><div class="cc-label">Text or Call</div><div class="cc-val">(661) 714-0903</div></div>
+      <div class="cc-item"><div class="cc-label">Email</div><div class="cc-val">dan@danrockandco.com</div></div>
+      <div class="cc-item"><div class="cc-label">Website</div><div class="cc-val">danrockandco.com</div></div>
+      <div class="cc-item"><div class="cc-label">Proposed Start</div><div class="cc-val">June 1, 2026</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    Prepared by <a href="https://danrockandco.com" target="_blank">DanRockAndCo.com</a> · dan@danrockandco.com · (661) 714-0903<br>
+    This report is confidential and prepared exclusively for Electrical ASAP.
+  </div>
+  <a href="https://danrockandco.com" class="footer-cta" target="_blank">Visit DanRockAndCo →</a>
+</div>
+
+<!-- YOUTUBE API + SYNC SCRIPT -->
+<script>
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  var autoScroll = true;
+  var syncInterval = null;
+
+  // Timestamps in seconds
+  var sections = [
+    { time: 0,   id: 'sec-0', tlId: 'tl-0', label: 'Intro' },
+    { time: 43,  id: 'sec-1', tlId: 'tl-1', label: 'The Numbers' },
+    { time: 78,  id: 'sec-2', tlId: 'tl-2', label: 'Backlinks' },
+    { time: 107, id: 'sec-3', tlId: 'tl-3', label: 'Mobile Speed' },
+    { time: 127, id: 'sec-4', tlId: 'tl-4', label: 'AI Search' },
+    { time: 152, id: 'sec-5', tlId: 'tl-5', label: 'Keywords' },
+    { time: 181, id: 'sec-6', tlId: 'tl-6', label: 'Quick Wins' },
+    { time: 310, id: 'sec-7', tlId: 'tl-7', label: 'Closing' }
+  ];
+
+  var currentSection = 0;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytPlayer', {
+      events: {
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      startSync();
+    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+      stopSync();
+    }
+  }
+
+  function startSync() {
+    if (syncInterval) clearInterval(syncInterval);
+    syncInterval = setInterval(syncScroll, 500);
+  }
+
+  function stopSync() {
+    if (syncInterval) {
+      clearInterval(syncInterval);
+      syncInterval = null;
+    }
+  }
+
+  function syncScroll() {
+    if (!player || !player.getCurrentTime) return;
+    var t = player.getCurrentTime();
+    var active = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (t >= sections[i].time) active = i;
+    }
+    if (active !== currentSection) {
+      currentSection = active;
+      updateActiveSection(active);
+      if (autoScroll) {
+        scrollToSection(sections[active].id);
+      }
+    }
+    updateTimeline(active, t);
+    document.getElementById('currentSectionLabel').textContent = sections[active].label;
+  }
+
+  function updateActiveSection(activeIdx) {
+    sections.forEach(function(s, i) {
+      var el = document.getElementById(s.id);
+      var header = el.querySelector('.sec-header');
+      if (i === activeIdx) {
+        el.classList.remove('dimmed');
+        el.classList.add('active');
+        header.classList.add('active-header');
+      } else {
+        el.classList.remove('active');
+        el.classList.add('dimmed');
+        header.classList.remove('active-header');
+      }
+    });
+  }
+
+  function updateTimeline(activeIdx, currentTime) {
+    sections.forEach(function(s, i) {
+      var el = document.getElementById(s.tlId);
+      el.classList.remove('active', 'past');
+      if (i === activeIdx) {
+        el.classList.add('active');
+      } else if (i < activeIdx) {
+        el.classList.add('past');
+      }
+    });
+  }
+
+  function scrollToSection(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function toggleAutoScroll() {
+    autoScroll = !autoScroll;
+    var btn = document.getElementById('autoScrollBtn');
+    var lbl = document.getElementById('scrollLabel');
+    var icon = document.getElementById('scrollIcon');
+    if (autoScroll) {
+      btn.classList.add('active');
+      lbl.textContent = 'Auto-Scroll On';
+      icon.textContent = '⟳';
+    } else {
+      btn.classList.remove('active');
+      lbl.textContent = 'Auto-Scroll Off';
+      icon.textContent = '⊘';
+    }
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function seekTo(seconds) {
+    if (player && player.seekTo) {
+      player.seekTo(seconds, true);
+      player.playVideo();
+    }
+  }
+</script>
+
+</body>
+</html>
