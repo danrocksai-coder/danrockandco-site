@@ -909,20 +909,28 @@
 </div>
 
 <!-- PROPOSAL DIVIDER -->
-<div style="background:#0A0A0A;padding:48px 32px 0;border-top:1px solid #1A1A1A;">
+<div style="background:#0A0A0A;padding:48px 32px 40px;border-top:1px solid #1A1A1A;">
   <div style="max-width:860px;margin:0 auto;">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
       <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#F0B830;white-space:nowrap;">Service Proposal</div>
       <div style="flex:1;height:1px;background:rgba(240,184,74,0.2);"></div>
     </div>
-    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,3.5vw,42px);color:white;line-height:1.1;padding-bottom:32px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,3.5vw,42px);color:white;line-height:1.1;margin-bottom:28px;">
       Interested in Moving Forward?<br><span style="color:#F0B830;">Here's Exactly What That Looks Like.</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <button onclick="downloadPDF()" style="display:inline-flex;align-items:center;gap:10px;background:#C98B0A;color:#000;border:none;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 24px;cursor:pointer;">
+        ↓ Download PDF
+      </button>
+      <a href="#proposal-start" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:2px;">
+        or read full proposal below ↓
+      </a>
     </div>
   </div>
 </div>
 
 <!-- PROPOSAL BODY EMBEDDED -->
-<div style="background:#F8F6F2;">
+<div style="background:#F8F6F2;" id="proposal-start">
 <div style="max-width:860px;margin:0 auto;padding:48px 32px 0;">
 
   <!-- INTRO LETTER -->
@@ -1277,12 +1285,50 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function seekTo(seconds) {
-    if (player && player.seekTo) {
-      player.seekTo(seconds, true);
-      player.playVideo();
-    }
+  function downloadPDF() {
+    // Hide video section and controls for clean PDF output
+    var videoSection = document.querySelector('.video-section');
+    var nav = document.querySelector('.nav');
+    var footer = document.querySelector('.footer');
+    var divider = document.querySelector('#proposal-start').previousElementSibling;
+    var reportBody = document.querySelector('.report-body');
+
+    var origVideoDisplay = videoSection.style.display;
+    var origNavDisplay = nav.style.display;
+    var origReportDisplay = reportBody.style.display;
+
+    videoSection.style.display = 'none';
+    nav.style.display = 'none';
+    reportBody.style.display = 'none';
+    divider.style.display = 'none';
+
+    // Remove dimmed state temporarily
+    document.querySelectorAll('.report-section').forEach(function(s) {
+      s.classList.remove('dimmed');
+    });
+
+    window.print();
+
+    // Restore after print dialog
+    setTimeout(function() {
+      videoSection.style.display = origVideoDisplay;
+      nav.style.display = origNavDisplay;
+      reportBody.style.display = origReportDisplay;
+      divider.style.display = '';
+    }, 1000);
   }
+
+  // Print styles
+  var printStyle = document.createElement('style');
+  printStyle.innerHTML = `
+    @media print {
+      .nav, .video-section, .report-body, .footer { display: none !important; }
+      #proposal-start { display: block !important; }
+      body { background: white !important; }
+      .report-section.dimmed { opacity: 1 !important; }
+    }
+  `;
+  document.head.appendChild(printStyle);
 </script>
 
 </body>
