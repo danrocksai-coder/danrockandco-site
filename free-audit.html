@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Website SEO Audit — DanRockAndCo</title>
+<meta name="description" content="Get a free personalized SEO audit for your business website. Find out exactly why you're not ranking and what to do about it. Takes 60 seconds to request.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F6F2;
+    --white: #FFFFFF;
+    --navy: #0C1B33;
+    --navy-mid: #162844;
+    --gold: #C98B0A;
+    --gold-light: #F0B830;
+    --gold-pale: #FDF3DC;
+    --border: #E0DAD0;
+    --text: #1A1A1A;
+    --muted: #777068;
+    --green: #1A6B45;
+    --green-pale: #EBF5EF;
+    --red: #8B2020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Literata', serif;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  .nav {
+    background: #0A0A0A;
+    padding: 0 32px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #1A1A1A;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo .mark {
+    width: 26px; height: 26px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 13px; color: #000;
+  }
+  .nav-logo .txt { color: rgba(255,255,255,0.6); }
+  .nav-logo .txt span { color: var(--gold-light); }
+  .nav-home {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    border: 1px solid rgba(240,184,74,0.3);
+    padding: 5px 12px;
+    transition: all 0.15s;
+  }
+  .nav-home:hover { background: rgba(240,184,74,0.08); }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    padding: 72px 32px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,139,10,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(240,184,74,0.12);
+    border: 1px solid rgba(240,184,74,0.3);
+    padding: 6px 14px;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 62px);
+    color: white;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .hero-sub strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-stat .hs-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .hero-stat .hs-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* VIDEO PLACEHOLDER */
+  .video-section {
+    background: #111;
+    padding: 48px 32px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+  .video-inner { max-width: 760px; margin: 0 auto; }
+  .video-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+  .video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #1A1A1A;
+    border: 2px dashed #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .vp-icon { font-size: 48px; opacity: 0.3; }
+  .vp-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.04em;
+  }
+  .vp-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* FORM SECTION */
+  .form-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 32px;
+  }
+
+  .form-intro {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+  .form-intro h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .form-intro p {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .form-intro p strong { color: var(--text); font-weight: 600; }
+
+  .form-card {
+    background: white;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .form-header {
+    background: var(--navy);
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .form-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.04em;
+  }
+  .form-header .fh-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    background: rgba(240,184,74,0.1);
+    border: 1px solid rgba(240,184,74,0.25);
+    padding: 3px 10px;
+  }
+
+  .form-body { padding: 32px 28px; }
+
+  /* CONTACT FIELDS */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-group.full { grid-column: 1 / -1; }
+  .field-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-required { color: var(--gold); margin-left: 3px; }
+  .field-input, .field-textarea {
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    font-family: 'Literata', serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    width: 100%;
+  }
+  .field-input:focus, .field-textarea:focus {
+    border-color: var(--gold);
+    background: white;
+  }
+  .field-input::placeholder, .field-textarea::placeholder {
+    color: #bbb;
+    font-style: italic;
+  }
+  .field-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  /* QUESTIONS */
+  .questions-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .q-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .q-num-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .q-num-label .qn {
+    width: 24px; height: 24px;
+    background: var(--navy);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* CHOICE BUTTONS */
+  .choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .choice-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    font-family: 'Literata', serif;
+    font-size: 13.5px;
+    color: var(--text);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .choice-btn input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .choice-btn .ci {
+    width: 15px; height: 15px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 9px;
+    color: transparent;
+    transition: all 0.15s;
+  }
+  .choice-btn:hover { border-color: var(--gold); background: rgba(201,139,10,0.04); }
+  .choice-btn.selected { border-color: var(--gold); background: rgba(201,139,10,0.07); color: var(--navy); font-weight: 500; }
+  .choice-btn.selected .ci { background: var(--gold); border-color: var(--gold); color: white; }
+
+  /* SUBMIT */
+  .submit-area {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .submit-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .submit-btn {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 18px 32px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .submit-btn:hover { background: var(--navy-mid); }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 32px;
+    background: white;
+    border: 1px solid var(--border);
+  }
+  .success-screen.visible { display: block; }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 20px;
+  }
+  .success-screen h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .success-screen p { font-size: 14px; color: var(--muted); max-width: 400px; margin: 0 auto; line-height: 1.75; }
+
+  /* SERVICES FOOTER */
+  .services-section {
+    background: var(--navy);
+    padding: 64px 32px;
+    margin-top: 0;
+  }
+  .services-inner { max-width: 760px; margin: 0 auto; }
+  .services-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .services-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 40px;
+    line-height: 1.1;
+  }
+  .services-title em { font-style: normal; color: var(--gold-light); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px;
+    transition: border-color 0.15s;
+  }
+  .service-card:hover { border-color: rgba(240,184,74,0.3); }
+  .sc-icon { font-size: 28px; margin-bottom: 12px; }
+  .sc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .sc-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* CUSTOMSONGME PROMO */
+  .song-promo {
+    background: rgba(240,184,74,0.08);
+    border: 1px solid rgba(240,184,74,0.25);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .song-promo:hover { background: rgba(240,184,74,0.13); }
+  .song-promo-left { }
+  .song-promo-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .song-promo-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .song-promo-title em { font-style: normal; color: var(--gold-light); }
+  .song-promo-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+  .song-promo-btn {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: #000;
+    padding: 12px 22px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER LINKS */
+  .footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-brand a { color: var(--gold-light); text-decoration: none; }
+  .footer-nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-nav a:hover { color: var(--gold-light); }
+
+  @media (max-width: 600px) {
+    .nav { padding: 0 16px; }
+    .hero { padding: 48px 20px 48px; }
+    .video-section { padding: 32px 20px; }
+    .form-section { padding: 36px 20px; }
+    .form-body { padding: 24px 20px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .services-section { padding: 48px 20px; }
+    .song-promo { padding: 22px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="https://danrockandco.com" class="nav-logo">
+    <div class="mark">D</div>
+    <div class="txt">Dan<span>Rock</span>&Co</div>
+  </a>
+  <a href="https://danrockandco.com" class="nav-home">← Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="dot"></div>
+      <span>100% Free · No Obligation</span>
+    </div>
+    <h1>Is Your Website<br>Leaving Money<br><em>on the Table?</em></h1>
+    <p class="hero-sub">I'll run a <strong>full SEO audit on your business website</strong> and show you exactly why you're not ranking where you should be — and the precise steps to fix it. Free. No pitch. Just answers.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hs-val">Free</div>
+        <div class="hs-lbl">No Cost Ever</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-val">60s</div>
+        <div class="hs-lbl">To Request</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-val">48hrs</div>
+        <div class="hs-lbl">Turnaround</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-val">100%</div>
+        <div class="hs-lbl">Personalized</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <div class="video-inner">
+      <div class="video-label">Watch — Why This Matters For Your Business</div>
+      <div style="position:relative;width:100%;max-width:400px;margin:0 auto;aspect-ratio:9/16;background:#000;border:1px solid #222;overflow:hidden;">
+        <iframe
+          src="https://www.youtube.com/embed/v8D7hU3JMow?rel=0&modestbranding=1&playsinline=1"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+<!-- FORM -->
+<div class="form-section">
+
+  <div class="form-intro">
+    <h2>Request Your Free Audit</h2>
+    <p>Answer <strong>5 quick questions</strong> about your business and leave your contact info. I'll build your personalized audit report and send it over within 48 hours. No automated tools, no generic reports — every audit is done by hand.</p>
+    <p style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:14px;color:var(--muted);line-height:1.75;">One more thing — full transparency: along with your audit report I'll also include a brief proposal outlining specific services I offer that could help fix what we find. <strong style="color:var(--text);">No pressure, no hard sell.</strong> You're under zero obligation to do anything with it. But if something looks interesting, we can talk. If not, the audit is yours to keep and do with whatever you like.</p>
+  </div>
+
+  <div class="form-card">
+    <div class="form-header">
+      <h3>Free SEO Audit Request</h3>
+      <div class="fh-tag">Takes 60 seconds</div>
+    </div>
+    <div class="form-body">
+      <form id="auditForm" novalidate>
+
+        <!-- CONTACT INFO -->
+        <div class="contact-grid">
+          <div class="field-group">
+            <div class="field-label">Your Name <span class="field-required">*</span></div>
+            <input class="field-input" type="text" name="name" placeholder="First and last name" required>
+          </div>
+          <div class="field-group">
+            <div class="field-label">Phone Number <span class="field-required">*</span></div>
+            <input class="field-input" type="tel" name="phone" placeholder="(555) 000-0000" required>
+          </div>
+          <div class="field-group full">
+            <div class="field-label">Email Address <span class="field-required">*</span></div>
+            <input class="field-input" type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+
+        <!-- 5 QUESTIONS -->
+        <div class="questions-label">5 Quick Questions</div>
+
+        <div class="q-item">
+          <div class="q-num-label"><div class="qn">1</div>What's your business name and website URL?</div>
+          <input class="field-input" type="text" name="q1" placeholder="e.g. Electrical ASAP · electricalasap.com">
+        </div>
+
+        <div class="q-item">
+          <div class="q-num-label"><div class="qn">2</div>What city or area do you serve?</div>
+          <input class="field-input" type="text" name="q2" placeholder="e.g. Bakersfield, CA · Kern County">
+        </div>
+
+        <div class="q-item">
+          <div class="q-num-label"><div class="qn">3</div>What's your main service or product?</div>
+          <input class="field-input" type="text" name="q3" placeholder="e.g. Licensed electrician · HVAC · Plumbing">
+        </div>
+
+        <div class="q-item">
+          <div class="q-num-label"><div class="qn">4</div>Are you currently running any paid advertising?</div>
+          <div class="choices" id="q4choices">
+            <label class="choice-btn radio"><input type="radio" name="q4" value="Yes"><span class="ci">✓</span>Yes</label>
+            <label class="choice-btn radio"><input type="radio" name="q4" value="No"><span class="ci">✓</span>No</label>
+            <label class="choice-btn radio"><input type="radio" name="q4" value="Not sure"><span class="ci">✓</span>Not sure</label>
+          </div>
+        </div>
+
+        <div class="q-item">
+          <div class="q-num-label"><div class="qn">5</div>What's your biggest frustration with your online presence right now?</div>
+          <textarea class="field-textarea" name="q5" placeholder="e.g. Not showing up on Google, paying too much for leads, competitors outranking me..."></textarea>
+        </div>
+
+        <div class="submit-area">
+          <p class="submit-note">Your information is kept completely private and will never be shared. You'll hear back within 48 hours with your full personalized audit report.</p>
+          <button type="submit" class="submit-btn">
+            Get My Free Audit Report
+            <span>→</span>
+          </button>
+        </div>
+
+      </form>
+
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">✓</div>
+        <h3>You're all set!</h3>
+        <p>I've got your request and I'll have your full personalized SEO audit report to you within 48 hours. Keep an eye on your email and phone. — Dan</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES SECTION -->
+<div class="services-section">
+  <div class="services-inner">
+
+    <div class="services-eyebrow">What I Do</div>
+    <div class="services-title">More Ways I Can<br><em>Help Your Business Grow</em></div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="sc-icon">📊</div>
+        <div class="sc-title">SEO Audit & Strategy</div>
+        <div class="sc-desc">Full website analysis, keyword research, and a clear action plan to improve your rankings and drive more organic traffic.</div>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">🎬</div>
+        <div class="sc-title">YouTube Content Engine</div>
+        <div class="sc-desc">Done-for-you YouTube channel creation and management. Scripts, production, SEO optimization — all handled for you every week.</div>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">⚡</div>
+        <div class="sc-title">Business Automations</div>
+        <div class="sc-desc">Custom automation systems — order alerts, lead notifications, email workflows — built to save you time and never miss a lead.</div>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">🌐</div>
+        <div class="sc-title">Performance Web Engineering</div>
+        <div class="sc-desc">Lean, fast, mobile-first websites with technical SEO and structured data built in from day one.</div>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">🤖</div>
+        <div class="sc-title">AI-Powered Workflows</div>
+        <div class="sc-desc">Hands-free content systems, AI voiceover production, and smart tools that multiply your output without multiplying your hours.</div>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">📍</div>
+        <div class="sc-title">Local SEO & GEO</div>
+        <div class="sc-desc">Dominate local search and AI-powered search results in your market before your competitors even know what's happening.</div>
+      </div>
+    </div>
+
+    <!-- CUSTOMSONGME PROMO -->
+    <a href="https://customsongme.com" class="song-promo" target="_blank">
+      <div class="song-promo-left">
+        <div class="song-promo-tag">🎵 Also from Dan Rock & Co</div>
+        <div class="song-promo-title">Your Story.<br><em>Your Song.</em></div>
+        <div class="song-promo-sub">Custom songs for birthdays, weddings, anniversaries, business jingles and more — personalized and delivered in 24 hours.</div>
+      </div>
+      <div class="song-promo-btn">Visit CustomSongMe →</div>
+    </a>
+
+    <!-- FOOTER LINKS -->
+    <div class="footer-links">
+      <div class="footer-brand">
+        © 2026 <a href="https://danrockandco.com">DanRockAndCo.com</a> · dan@danrockandco.com · (661) 714-0903
+      </div>
+      <div class="footer-nav">
+        <a href="https://danrockandco.com">Home</a>
+        <a href="https://danrockandco.com/services">Services</a>
+        <a href="https://danrockandco.com/contact">Contact</a>
+        <a href="https://customsongme.com" target="_blank">CustomSongMe</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Choice button logic
+  document.querySelectorAll('.choice-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var input = this.querySelector('input');
+      var name = input.name;
+      document.querySelectorAll('input[name="' + name + '"]').forEach(function(i) {
+        i.closest('.choice-btn').classList.remove('selected');
+      });
+      input.checked = true;
+      this.classList.add('selected');
+    });
+  });
+
+  // Form submit
+  document.getElementById('auditForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = this.querySelector('[name="name"]').value;
+    var email = this.querySelector('[name="email"]').value;
+    var phone = this.querySelector('[name="phone"]').value;
+    if (!name || !email || !phone) {
+      alert('Please fill in your name, email, and phone number.');
+      return;
+    }
+    document.getElementById('auditForm').style.display = 'none';
+    document.getElementById('successScreen').classList.add('visible');
+    window.scrollTo({ top: document.querySelector('.form-card').offsetTop - 80, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
